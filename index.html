@@ -20,7 +20,7 @@
           </ul>
         </nav>
       </header>
-
+      
       <main class="main-layout">
         <section class="main-gallery">
           <header class="gallery-header">
@@ -75,26 +75,31 @@
             <div class="text-selection">
               <button>↑</button>
               <button>↓</button>
-              <button title="Switch Line" onclick="onSwitchLine()">↑↓</button>
-              <button title="Add line" onclick="onAddLine()">+</button>
-              <button title="Delete line" onclick="onDeleteLine()">🚮</button>
+              <div class="icon-btn"><img src="img/icons/up-and-down-opposite-double-arrows-side-by-side.png" alt="Switch line" title="Switch Line" onclick="onSwitchLine()"></div>
+              <div class="icon-btn"><img src="img/icons/add.png" alt="Add line" title="Add line" onclick="onAddLine()"></div>
+              <div class="icon-btn"><img src="img/icons/trash.png" alt="Delete line" title="Delete line" onclick="onDeleteLine()"></div>
             </div>
 
             <div class="font-style">
-              <button onclick="onChangeFontSize('2')">A+</button>
-              <button onclick="onChangeFontSize('-2')">A-</button>
-              <button onclick="onChangeAlignment('left')">AL</button>
-              <button onclick="onChangeAlignment('center')">AC</button>
-              <button onclick="onChangeAlignment('right')">AR</button>
+              <div class="icon-btn"><img src="img/icons/increase font - icon.png" alt="Increase font" title="Increase font" onclick="onChangeFontSize('2')"></div>
+              <div class="icon-btn"><img src="img/icons/decrease font - icon.png" alt="Decrease font" title="Decrease font" onclick="onChangeFontSize('-2')"></div>
+              <div class="icon-btn"><img src="img/icons/align-to-left.png" alt="Align left" title="Align left" onclick="onChangeAlignment('left')"></div>
+              <div class="icon-btn"><img src="img/icons/center-text-alignment.png" alt="Align center" title="Align center" onclick="onChangeAlignment('center')"></div>
+              <div class="icon-btn"><img src="img/icons/align-to-right.png" alt="Align right" title="Align right" onclick="onChangeAlignment('right')"></div>
+              <!-- <button>A+</button>
+              <button>A-</button>
+              <button >AL</button>
+              <button >AC</button>
+              <button >AR</button> -->
               <select class="font-family-input" onchange="onFontFamilyChange(this.value)">
                   <!-- font families are rendered here -->
               </select>
               <div class="color-btn">
-                  <button>S</button>
+                  <div class="icon-btn"><img src="img/icons/text stroke.png" alt="A stroke" title="Text outline color"></div>
                   <input type="color" oninput="onChangeStrokeColor(this.value)"/>
               </div>
               <div class="color-btn">
-                <button>🎨</button>
+                <div class="icon-btn"><img src="img/icons/paint-board-and-brush.png" alt="paint platte" title="Text fill color"></div>
                 <input type="color" oninput="onChangeFillColor(this.value)" value="#f5f5f5" />
               </div>
             </div>

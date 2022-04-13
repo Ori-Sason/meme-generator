@@ -40,15 +40,21 @@
   border-radius: 15px;
 }
 
+.text-selection {
+  display: flex;
+  gap: 1em;
+}
+
 .editor-config .font-style {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, max-content);
   gap: 1em;
 }
 
 .editor-config .font-style .font-family-input {
   grid-column: 1 / span 3;
   border: 1px solid red;
+  cursor: pointer;
 }
 
 .editor-config .stickers {

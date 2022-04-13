@@ -1,0 +1,28 @@
+/* TYPE COLOR INPUTS*/
+.color-btn {
+  position: relative;
+}
+
+.color-btn input[type='color'] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+/* BUTTONS WITH IMG */
+.icon-btn {
+  height: 3em;
+  aspect-ratio: 1/1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.icon-btn img{
+  height: 80%;
+}
