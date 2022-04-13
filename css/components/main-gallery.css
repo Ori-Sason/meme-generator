@@ -66,3 +66,8 @@
   max-width: 210px;
   cursor: pointer;
 }
+
+.main-gallery .image-gallery img:hover {
+  border: 1px solid transparent;
+  box-shadow: 0 0 5px var(--bg-clr-100);
+}
