@@ -116,9 +116,21 @@ function getPos(idx, txt, align) {
 
 function onSwitchLine() {
   switchLine()
-  document.querySelector('.editor-config .text-input').value = getCurrLine().txt
+  showCurrText()
   renderMeme()
 }
+
+function onDeleteLine(){
+  deleteLine()
+  showCurrText()
+  renderMeme()
+}
+
+function showCurrText(){
+  const line = getCurrLine()
+  document.querySelector('.editor-config .text-input').value = line.txt
+}
+
 
 function onChangeAlignment(alignment){
   changeAlign(alignment)

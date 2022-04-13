@@ -3,7 +3,7 @@
 //KEYWORDS: animal, politician, baby, dog, cat, men, women, actors, movies, funny, comic, smile
 
 const gKeywordSearchCountMap = {}
-const gFontFamilies = ['impact', 'poppins', 'fontdiner-swanky', 'lobster',]
+const gFontFamilies = ['impact', 'poppins', 'fontdiner-swanky', 'lobster']
 
 const gImgs = [
   {
@@ -39,7 +39,7 @@ function setLineTxt(text) {
 }
 
 function getCurrLine() {
-  if(gMeme.lines.length === 0) return null
+  if (gMeme.lines.length === 0) return null
   return gMeme.lines[gMeme.selectedLineIdx]
 }
 
@@ -68,6 +68,19 @@ function addLine() {
   gMeme.selectedLineIdx = gMeme.lines.length - 1
 }
 
+function deleteLine() {
+  if (gMeme.lines.length === 0) return
+
+  gMeme.lines.splice(gMeme.selectedLineIdx)
+  gMeme.selectedLineIdx--
+  
+  if (gMeme.selectedLineIdx < 0) gMeme.selectedLineIdx = 0
+
+  if(gMeme.lines.length === 0){
+    _createMemeLine()
+  }
+}
+
 function switchLine() {
   if (gMeme.selectedLineIdx === gMeme.lines.length - 1) {
     return (gMeme.selectedLineIdx = 0)
@@ -76,11 +89,11 @@ function switchLine() {
   gMeme.selectedLineIdx++
 }
 
-function getFontFamilies(){
+function getFontFamilies() {
   return gFontFamilies.sort()
 }
 
-function changeAlign(alignment){
+function changeAlign(alignment) {
   const line = getCurrLine()
   line.align = alignment
 }
