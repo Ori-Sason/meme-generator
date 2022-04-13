@@ -49,4 +49,5 @@
 .main-gallery .image-gallery img{
     border-radius: 10px;
     max-height: 210px;
+    cursor: pointer;
 }

@@ -1,6 +1,5 @@
 .main-editor {
   display: flex;
-  /* display: none; */
   gap: 2em;
 }
 
@@ -9,6 +8,11 @@
 .canvas-container {
   flex-basis: 50%;
   flex-grow: 1;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   border: 1px solid red;
   border-radius: 15px;
 }
@@ -38,20 +42,18 @@
 }
 
 .editor-config .font-style .font-family-input {
-  grid-column: 1/ span 3;
+  grid-column: 1 / span 3;
   border: 1px solid red;
 }
 
-.editor-config .stickers{
-    display: flex;
+.editor-config .stickers {
+  display: flex;
 }
 
-.editor-config .save-meme ul{
-    display: flex;
+.editor-config .save-meme ul {
+  display: flex;
 }
 
-.editor-config .save-meme a{
-    margin-inline-end: 1em;
+.editor-config .save-meme a {
+  margin-inline-end: 1em;
 }
-
-
