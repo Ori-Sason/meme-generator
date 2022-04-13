@@ -21,7 +21,7 @@ function renderMeme() {
     meme.lines.forEach((line, idx) => drawText(idx, line))
 
     const line = getCurrLine()
-    if ((line !== null) & (line.txt !== '')) markSelectedLine()
+    if (line !== null && line.txt !== '') markSelectedLine()
   }
 }
 

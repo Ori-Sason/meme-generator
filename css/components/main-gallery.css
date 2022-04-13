@@ -39,15 +39,16 @@
 }
 
 /* IMAGES */
-.main-gallery .image-gallery{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); /* FIX */
-    gap: 20px;
-    
+
+.main-gallery .image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,210px);
+  gap: 20px;
 }
 
-.main-gallery .image-gallery img{
-    border-radius: 10px;
-    max-height: 210px;
-    cursor: pointer;
+.main-gallery .image-gallery img {
+  flex-basis: content;
+  border-radius: 10px;
+  max-width: 210px;
+  cursor: pointer;
 }
