@@ -65,19 +65,15 @@ function onChangeText(txt) {
   renderMeme()
 }
 
-function onChangeStrokeColor(clr) {
-  setStrokeClr(clr)
+function onSwitchLine() {
+  switchLine()
+  showCurrTextOnInput()
   renderMeme()
 }
 
-function onChangeFillColor(clr) {
-  setFillClr(clr)
-  renderMeme()
-}
-
-function onChangeFontSize(diff) {
-  setFontSize(diff)
-  renderMeme()
+function showCurrTextOnInput() {
+  const line = getCurrLine()
+  document.querySelector('.editor-config .text-input').value = line.txt
 }
 
 function onAddLine() {
@@ -89,15 +85,41 @@ function onAddLine() {
   renderMeme()
 }
 
+function onDeleteLine() {
+  deleteLine()
+  showCurrTextOnInput()
+  renderMeme()
+}
+
+function onChangeFontSize(diff) {
+  setFontSize(diff)
+  renderMeme()
+}
+
+function onChangeAlignment(alignment) {
+  setAlign(alignment)
+  renderMeme()
+}
+
 function onFontFamilyChange(name) {
   gCurrFontFamily = name
+  renderMeme()
+}
+
+function onChangeStrokeColor(clr) {
+  setStrokeClr(clr)
+  renderMeme()
+}
+
+function onChangeFillColor(clr) {
+  setFillClr(clr)
   renderMeme()
 }
 
 /* will need to fix the sizes (not always 50)*/
 function getPos(idx, txt, align) {
   let x = 30
-  
+
   if (align === 'right') {
     x = gElCanvas.width - gCtx.measureText(txt).width - 30
   } else if (align === 'center') {
@@ -112,29 +134,6 @@ function getPos(idx, txt, align) {
     default:
       return { x, y: 50 * idx }
   }
-}
-
-function onSwitchLine() {
-  switchLine()
-  showCurrText()
-  renderMeme()
-}
-
-function onDeleteLine(){
-  deleteLine()
-  showCurrText()
-  renderMeme()
-}
-
-function showCurrText(){
-  const line = getCurrLine()
-  document.querySelector('.editor-config .text-input').value = line.txt
-}
-
-
-function onChangeAlignment(alignment){
-  changeAlign(alignment)
-  renderMeme()
 }
 
 /* FIX RESIZING */

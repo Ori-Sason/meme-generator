@@ -34,10 +34,6 @@ function getMeme() {
   return gMeme
 }
 
-function setLineTxt(text) {
-  gMeme.lines[gMeme.selectedLineIdx].txt = text
-}
-
 function getCurrLine() {
   if (gMeme.lines.length === 0) return null
   return gMeme.lines[gMeme.selectedLineIdx]
@@ -51,16 +47,16 @@ function setImg(id) {
   gMeme.selectedImgId = id
 }
 
-function setStrokeClr(clr) {
-  gMeme.lines[gMeme.selectedLineIdx].strokeClr = clr
+function setLineTxt(text) {
+  gMeme.lines[gMeme.selectedLineIdx].txt = text
 }
 
-function setFillClr(clr) {
-  gMeme.lines[gMeme.selectedLineIdx].fillClr = clr
-}
+function switchLine() {
+  if (gMeme.selectedLineIdx === gMeme.lines.length - 1) {
+    return (gMeme.selectedLineIdx = 0)
+  }
 
-function setFontSize(step) {
-  getCurrLine().size += +step
+  gMeme.selectedLineIdx++
 }
 
 function addLine() {
@@ -81,21 +77,24 @@ function deleteLine() {
   }
 }
 
-function switchLine() {
-  if (gMeme.selectedLineIdx === gMeme.lines.length - 1) {
-    return (gMeme.selectedLineIdx = 0)
-  }
+function setFontSize(step) {
+  getCurrLine().size += +step
+}
 
-  gMeme.selectedLineIdx++
+function setAlign(alignment) {
+  const line = getCurrLine()
+  line.align = alignment
 }
 
 function getFontFamilies() {
   return gFontFamilies.sort()
 }
+function setStrokeClr(clr) {
+  gMeme.lines[gMeme.selectedLineIdx].strokeClr = clr
+}
 
-function changeAlign(alignment) {
-  const line = getCurrLine()
-  line.align = alignment
+function setFillClr(clr) {
+  gMeme.lines[gMeme.selectedLineIdx].fillClr = clr
 }
 
 function _createMemeLine() {
