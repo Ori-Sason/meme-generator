@@ -1,3 +1,13 @@
 :root{
-    
+    --blue-clr-500: #0f9bb3;
+    --blue-clr-700: #0d8094;
+    --green-clr-200: #0fb3ae;
+    --green-clr-500: #30bb72;
+
+    --bg-clr-100: white;
+    --bg-clr-200: rgb(215, 214, 214);
+    --bg-clr-400: #88898d;
+    --bg-clr-500: #383b42;
+    --bg-clr-700: #2a2e36;
+    --bg-clr-800: #22252c;
 }

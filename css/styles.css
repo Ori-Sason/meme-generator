@@ -12,6 +12,7 @@
 @import 'components/main-gallery.css';
 @import 'components/buttons.css';
 @import 'components/main-editor.css';
+@import 'components/main-footer.css';
 
 /* Media Queries */
 @import 'mq/mq.css';

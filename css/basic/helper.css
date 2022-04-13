@@ -1,16 +1,42 @@
+/* hide */
+section.hide {
+  display: none;
+}
+
+/* lists */
 .clean-list {
   padding: 0;
   margin: 0;
   list-style-type: none;
 }
 
+/* text inputs*/
+
 .text-input {
   padding: 1em;
   font-size: 1.3125em;
-  border: 1px solid red;
   border-radius: 6em;
 }
 
-section.hide {
-  display: none;
+.text-input:focus-visible {
+  outline: none;
+}
+
+/* font awesome */
+
+.fa::before {
+  position: absolute;
+  left: 1em;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.fa.fa-share::before {
+  font-family: fa;
+  content: '\f1e0';
+}
+
+.fa.fa-download::before {
+  font-family: fa;
+  content: '\f56d';
 }

@@ -14,7 +14,7 @@
 
         <nav class="header-links">
           <ul class="clean-list">
-            <li><a href="#">Gallery</a></li>
+            <li><a href="#" class="active-page">Gallery</a></li>
             <li><a href="#">Memes</a></li>
             <li><a href="#">About</a></li>
           </ul>
@@ -75,9 +75,9 @@
             <div class="text-selection">
               <button>↑</button>
               <button>↓</button>
-              <div class="icon-btn"><img src="img/icons/up-and-down-opposite-double-arrows-side-by-side.png" alt="Switch line" title="Switch Line" onclick="onSwitchLine()"></div>
-              <div class="icon-btn"><img src="img/icons/add.png" alt="Add line" title="Add line" onclick="onAddLine()"></div>
-              <div class="icon-btn"><img src="img/icons/trash.png" alt="Delete line" title="Delete line" onclick="onDeleteLine()"></div>
+              <div class="icon-btn switch"><img src="img/icons/switch.png" alt="Switch line" title="Switch Line" onclick="onSwitchLine()"></div>
+              <div class="icon-btn add"><img src="img/icons/add.png" alt="Add line" title="Add line" onclick="onAddLine()"></div>
+              <div class="icon-btn trash"><img src="img/icons/trash.png" alt="Delete line" title="Delete line" onclick="onDeleteLine()"></div>
             </div>
 
             <div class="font-style">
@@ -86,14 +86,11 @@
               <div class="icon-btn"><img src="img/icons/align-to-left.png" alt="Align left" title="Align left" onclick="onChangeAlignment('left')"></div>
               <div class="icon-btn"><img src="img/icons/center-text-alignment.png" alt="Align center" title="Align center" onclick="onChangeAlignment('center')"></div>
               <div class="icon-btn"><img src="img/icons/align-to-right.png" alt="Align right" title="Align right" onclick="onChangeAlignment('right')"></div>
-              <!-- <button>A+</button>
-              <button>A-</button>
-              <button >AL</button>
-              <button >AC</button>
-              <button >AR</button> -->
-              <select class="font-family-input" onchange="onFontFamilyChange(this.value)">
+              
+              <select class="font-family-input text-input" onchange="onFontFamilyChange(this.value)">
                   <!-- font families are rendered here -->
               </select>
+              
               <div class="color-btn">
                   <div class="icon-btn"><img src="img/icons/text stroke.png" alt="A stroke" title="Text outline color"></div>
                   <input type="color" oninput="onChangeStrokeColor(this.value)"/>
@@ -105,16 +102,17 @@
             </div>
 
             <div class="stickers">
-              <button>&lt;</button>
-              <ul class="stickers-list"></ul>
-              <button>&gt;</button>
+              <ul class="stickers-list text-input clean-list">
+                <li><button>&lt;</button></li>
+                <li>😀</li>
+                <li><button>&gt;</button></li>
+              </ul>
             </div>
 
             <div class="save-meme">
               <ul class="clean-list">
-                <li><a href="">Save</a></li>
-                <li><a href="">Download</a></li>
-                <li><a href="">Share</a></li>
+                <li><a class="fa fa-share" href="">Share</a></li>
+                <li><a class="fa fa-download" href="">Download</a></li>
               </ul>
             </div>
           </div>

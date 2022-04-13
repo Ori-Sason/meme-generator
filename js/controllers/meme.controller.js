@@ -16,6 +16,7 @@ function renderMeme() {
 
   const img = new Image()
   img.src = getImg(meme.selectedImgId).url
+
   img.onload = () => {
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
     meme.lines.forEach((line, idx) => drawText(idx, line))

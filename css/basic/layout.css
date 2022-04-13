@@ -1,5 +1,6 @@
 .main-layout {
-  width: 90%; /* FIX  */
+  width: 90%;
+  max-width: 1260px;
   margin: 0 auto;
 }
 
