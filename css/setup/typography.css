@@ -1,4 +1,14 @@
 @font-face {
+  font-family: fontdiner-swanky;
+  src: url(../../fonts/Fontdiner-Swanky/FontdinerSwanky-Regular.ttf);
+}
+
+@font-face {
+  font-family: lobster;
+  src: url(../../fonts/Lobster/Lobster-Regular.ttf);
+}
+
+@font-face {
   font-family: poppins;
   src: url(../../fonts/Poppins/Poppins-Regular.ttf);
 }

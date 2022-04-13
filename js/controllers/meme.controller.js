@@ -4,6 +4,13 @@ const gElCanvas = document.getElementById('canvas')
 const gCtx = gElCanvas.getContext('2d')
 let gCurrFontFamily = 'impact'
 
+function initGenerator() {
+  renderFontFamilies()
+  resizeCanvas()
+  addLine()
+  renderMeme()
+}
+
 function renderMeme() {
   const meme = getMeme()
 
@@ -14,7 +21,7 @@ function renderMeme() {
     meme.lines.forEach((line, idx) => drawText(idx, line))
 
     const line = getCurrLine()
-    if (line.txt !== '') markSelectedLine()
+    if ((line !== null) & (line.txt !== '')) markSelectedLine()
   }
 }
 
@@ -34,7 +41,7 @@ function drawText(idx, { txt, size, fillClr, strokeClr }) {
 function markSelectedLine() {
   const meme = getMeme()
   const line = getCurrLine()
-  
+
   const pos = getPos(meme.selectedLineIdx)
   drawRect(pos, line.txt)
 }
@@ -75,10 +82,15 @@ function onChangeFontSize(diff) {
 
 function onAddLine() {
   const elInput = document.querySelector('.editor-config .text-input')
-  if ((elInput.value.trim() === '')) return
+  if (elInput.value.trim() === '') return
 
   addLine()
   elInput.value = ''
+  renderMeme()
+}
+
+function onFontFamilyChange(name) {
+  gCurrFontFamily = name
   renderMeme()
 }
 
@@ -109,4 +121,17 @@ function resizeCanvas() {
   gElCanvas.width = elContainer.offsetWidth - 50
   // Unless needed, better keep height fixed.  /* FIX */
   gElCanvas.height = elContainer.offsetHeight - 50
+}
+
+function renderFontFamilies() {
+  const names = getFontFamilies()
+  let strHtml = ''
+  names.map(
+    (name) =>
+      (strHtml += `
+    <option value="${name}">${getCamelCase(name)}</option>
+  `)
+  )
+
+  document.querySelector('.font-family-input').innerHTML = strHtml
 }

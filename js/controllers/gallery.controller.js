@@ -17,7 +17,5 @@ function onImgSelect(id) {
     setImg(id)
     showEditor()
     
-    resizeCanvas()
-    addLine()
-    renderMeme()
+    initGenerator()
 }
