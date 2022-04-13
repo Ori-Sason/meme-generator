@@ -83,9 +83,9 @@
             <div class="font-style">
               <button onclick="onChangeFontSize('2')">A+</button>
               <button onclick="onChangeFontSize('-2')">A-</button>
-              <button>AR</button>
-              <button>AC</button>
-              <button>AL</button>
+              <button onclick="onChangeAlignment('left')">AL</button>
+              <button onclick="onChangeAlignment('center')">AC</button>
+              <button onclick="onChangeAlignment('right')">AR</button>
               <select class="font-family-input" onchange="onFontFamilyChange(this.value)">
                   <!-- font families are rendered here -->
               </select>

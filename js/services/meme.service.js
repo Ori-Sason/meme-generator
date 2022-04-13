@@ -3,7 +3,7 @@
 //KEYWORDS: animal, politician, baby, dog, cat, men, women, actors, movies, funny, comic, smile
 
 const gKeywordSearchCountMap = {}
-const gFontFamilies = ['impact', 'fontdiner-swanky', 'lobster', 'poppins']
+const gFontFamilies = ['impact', 'poppins', 'fontdiner-swanky', 'lobster',]
 
 const gImgs = [
   {
@@ -77,7 +77,12 @@ function switchLine() {
 }
 
 function getFontFamilies(){
-  return gFontFamilies
+  return gFontFamilies.sort()
+}
+
+function changeAlign(alignment){
+  const line = getCurrLine()
+  line.align = alignment
 }
 
 function _createMemeLine() {

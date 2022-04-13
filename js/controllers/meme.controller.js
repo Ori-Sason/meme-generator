@@ -25,7 +25,7 @@ function renderMeme() {
   }
 }
 
-function drawText(idx, { txt, size, fillClr, strokeClr }) {
+function drawText(idx, { txt, size, align, fillClr, strokeClr }) {
   if (txt.trim() === '') return
   //   gCtx.font = gCtx.font.replace(/^\d+/, size)
   gCtx.font = `${size}px ${gCurrFontFamily}`
@@ -33,7 +33,7 @@ function drawText(idx, { txt, size, fillClr, strokeClr }) {
   gCtx.strokeStyle = strokeClr
   gCtx.fillStyle = fillClr
 
-  const pos = getPos(idx)
+  const pos = getPos(idx, txt, align)
   gCtx.fillText(txt, pos.x, pos.y)
   gCtx.strokeText(txt, pos.x, pos.y)
 }
@@ -42,7 +42,7 @@ function markSelectedLine() {
   const meme = getMeme()
   const line = getCurrLine()
 
-  const pos = getPos(meme.selectedLineIdx)
+  const pos = getPos(meme.selectedLineIdx, line.txt, line.align)
   drawRect(pos, line.txt)
 }
 
@@ -95,20 +95,33 @@ function onFontFamilyChange(name) {
 }
 
 /* will need to fix the sizes (not always 50)*/
-function getPos(idx) {
+function getPos(idx, txt, align) {
+  let x = 30
+  
+  if (align === 'right') {
+    x = gElCanvas.width - gCtx.measureText(txt).width - 30
+  } else if (align === 'center') {
+    x = (gElCanvas.width - gCtx.measureText(txt).width) / 2
+  }
+
   switch (idx) {
     case 0:
-      return { x: 30, y: 50 }
+      return { x, y: 50 }
     case 1:
-      return { x: 30, y: gElCanvas.height - 20 }
+      return { x, y: gElCanvas.height - 20 }
     default:
-      return { x: 30, y: 50 * idx }
+      return { x, y: 50 * idx }
   }
 }
 
 function onSwitchLine() {
   switchLine()
   document.querySelector('.editor-config .text-input').value = getCurrLine().txt
+  renderMeme()
+}
+
+function onChangeAlignment(alignment){
+  changeAlign(alignment)
   renderMeme()
 }
 
@@ -133,5 +146,7 @@ function renderFontFamilies() {
   `)
   )
 
-  document.querySelector('.font-family-input').innerHTML = strHtml
+  const elSelection = document.querySelector('.font-family-input')
+  elSelection.innerHTML = strHtml
+  elSelection.value = gCurrFontFamily
 }
