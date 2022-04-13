@@ -1,0 +1,16 @@
+.clean-list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.text-input {
+  padding: 1em;
+  font-size: 1.3125em;
+  border: 1px solid red;
+  border-radius: 6em;
+}
+
+section.hide{
+    display: none;
+}

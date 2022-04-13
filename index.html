@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Meme Generator</title>
+  </head>
+  <body>
+    <div class="body-container">
+      <header class="main-header main-layout">
+        <img class="logo" src="img/logo/LOGO.png" alt="meme generator logo" />
+
+        <nav class="header-links">
+          <ul class="clean-list">
+            <li><a href="#">Gallery</a></li>
+            <li><a href="#">Memes</a></li>
+            <li><a href="#">About</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <main class="main-layout">
+        <section class="main-gallery">
+          <header class="gallery-header">
+            <input
+              class="gallery-search text-input"
+              type="text"
+              placeholder="Enter keyword for search"
+            />
+
+            <ul class="keywords-list clean-list">
+              <li>funny</li>
+              <li>animal</li>
+              <li>man</li>
+              <li>woman</li>
+              <li>comic</li>
+              <li>smile</li>
+            </ul>
+
+            <button class="keywords-more-btn">More</button>
+          </header>
+
+          <main>
+            <ul class="image-gallery clean-list">
+              <li><img src="/img/gallery/1.jpg" alt="" /></li>
+              <li><img src="/img/gallery/2.jpg" alt="" /></li>
+              <li><img src="/img/gallery/1.jpg" alt="" /></li>
+              <li><img src="/img/gallery/2.jpg" alt="" /></li>
+              <li><img src="/img/gallery/1.jpg" alt="" /></li>
+              <li><img src="/img/gallery/2.jpg" alt="" /></li>
+              <li><img src="/img/gallery/1.jpg" alt="" /></li>
+              <li><img src="/img/gallery/2.jpg" alt="" /></li>
+              <li><img src="/img/gallery/1.jpg" alt="" /></li>
+              <li><img src="/img/gallery/2.jpg" alt="" /></li>
+              <li><img src="/img/gallery/1.jpg" alt="" /></li>
+              <li><img src="/img/gallery/2.jpg" alt="" /></li>
+              <li><img src="/img/gallery/1.jpg" alt="" /></li>
+              <li><img src="/img/gallery/2.jpg" alt="" /></li>
+              <li><img src="/img/gallery/1.jpg" alt="" /></li>
+              <li><img src="/img/gallery/2.jpg" alt="" /></li>
+            </ul>
+          </main>
+        </section>
+
+        <section class="main-editor hide">
+          <div class="canvas-container">
+            <canvas id="canvas"></canvas>
+          </div>
+
+          <div class="editor-config">
+            <input type="text" class="text-input" />
+
+            <div class="text-selection">
+              <button>↑</button>
+              <button>↓</button>
+              <button>↑↓</button>
+              <button>+</button>
+              <button>🚮</button>
+            </div>
+
+            <div class="font-style">
+              <button>A+</button>
+              <button>A-</button>
+              <button>AR</button>
+              <button>AC</button>
+              <button>AL</button>
+              <select class="font-family-input"></select>
+              <button>S</button>
+              <button>🎨</button>
+            </div>
+
+            <div class="stickers">
+              <button>&lt;</button>
+              <ul class="stickers-list"></ul>
+              <button>&gt;</button>
+            </div>
+
+            <div class="save-meme">
+              <ul class="clean-list">
+                <li><a href="">Save</a></li>
+                <li><a href="">Download</a></li>
+                <li><a href="">Share</a></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="main-footer main-layout">
+        <p>☕ Coffeerights 2022 Ori Sason, nothing reserved</p>
+      </footer>
+    </div>
+  </body>
+</html>

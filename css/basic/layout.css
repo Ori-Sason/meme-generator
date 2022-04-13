@@ -1,0 +1,11 @@
+.main-layout {
+  width: 90%; /* FIX  */
+  margin: 0 auto;
+}
+
+.body-container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto 1fr auto;
+}
