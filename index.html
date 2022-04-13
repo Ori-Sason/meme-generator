@@ -70,7 +70,7 @@
           </div>
 
           <div class="editor-config">
-            <input type="text" class="text-input" />
+            <input type="text" class="text-input" oninput="onChangeText(this.value)" />
 
             <div class="text-selection">
               <button>↑</button>
@@ -81,14 +81,22 @@
             </div>
 
             <div class="font-style">
-              <button>A+</button>
-              <button>A-</button>
+              <button onclick="onChangeFontSize('2')">A+</button>
+              <button onclick="onChangeFontSize('-2')">A-</button>
               <button>AR</button>
               <button>AC</button>
               <button>AL</button>
-              <select class="font-family-input"></select>
-              <button>S</button>
-              <button>🎨</button>
+              <select class="font-family-input">
+                  <option value="impact">Impact</option>
+              </select>
+              <div class="color-btn">
+                  <button>S</button>
+                  <input type="color" oninput="onChangeStrokeColor(this.value)"/>
+              </div>
+              <div class="color-btn">
+                <button>🎨</button>
+                <input type="color" oninput="onChangeFillColor(this.value)" value="#f5f5f5" />
+            </div>
             </div>
 
             <div class="stickers">

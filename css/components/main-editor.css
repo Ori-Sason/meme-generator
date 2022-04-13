@@ -5,10 +5,15 @@
 
 /* CANVAS */
 
+#canvas {
+  aspect-ratio: 1/1;
+  border-radius: 10px;
+}
+
 .canvas-container {
   flex-basis: 50%;
   flex-grow: 1;
-  
+
   display: flex;
   align-items: center;
   justify-content: center;

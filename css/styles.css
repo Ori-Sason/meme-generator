@@ -10,6 +10,7 @@
 /* Components */
 @import 'components/main-header.css';
 @import 'components/main-gallery.css';
+@import 'components/color-btn.css';
 @import 'components/main-editor.css';
 
 /* Media Queries */

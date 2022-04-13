@@ -14,10 +14,11 @@ body {
   font-size: 1.125em;
 }
 
-button {
+button, input[type='color'] {
   font-size: 1.3215em;
   /* margin: 0.5em;
   padding: 0.5em; */
+  cursor: pointer;
 }
 
 a {

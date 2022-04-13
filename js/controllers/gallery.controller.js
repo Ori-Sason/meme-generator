@@ -16,5 +16,7 @@ function renderGallery() {
 function onImgSelect(id) {
     setImg(id)
     showEditor()
+    resizeCanvas()
+    gCtx.fillStyle = 'whitesmoke'
     renderMeme()
 }

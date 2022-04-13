@@ -5,8 +5,18 @@
 const gKeywordSearchCountMap = {}
 
 const gImgs = [
-  { id: 1, url: '../../img/gallery/1.jpg', keywords: ['politician', 'men'], alt: 'donald trump' },
-  { id: 2, url: '../../img/gallery/2.jpg', keywords: ['animal', 'dog', 'smile'], alt: 'puppies' },
+  {
+    id: 1,
+    url: '../../img/gallery/1.jpg',
+    keywords: ['politician', 'men'],
+    alt: 'donald trump',
+  },
+  {
+    id: 2,
+    url: '../../img/gallery/2.jpg',
+    keywords: ['animal', 'dog', 'smile'],
+    alt: 'puppies',
+  },
 ]
 
 const gMeme = {
@@ -15,15 +25,16 @@ const gMeme = {
   lines: [
     {
       txt: '',
-      size: 20,
+      size: 50,
       align: 'left',
-      color: 'red',
+      strokeClr: 'black',
+      fillClr: 'whitesmoke',
     },
   ],
 }
 
-function getImgs(){
-    return gImgs
+function getImgs() {
+  return gImgs
 }
 
 function getMeme() {
@@ -31,13 +42,30 @@ function getMeme() {
 }
 
 function setLineTxt(text) {
-  gMeme.lines[selectedLineIdx].txt = text
+  gMeme.lines[gMeme.selectedLineIdx].txt = text
 }
 
-function getImg(id){
-    return gImgs.find(img => img.id === id)
+function getCurrLine() {
+  return gMeme.lines[gMeme.selectedLineIdx]
 }
 
-function setImg(id){
-    gMeme.selectedImgId = id
+function getImg(id) {
+  return gImgs.find((img) => img.id === id)
 }
+
+function setImg(id) {
+  gMeme.selectedImgId = id
+}
+
+function setStrokeClr(clr) {
+  gMeme.lines[gMeme.selectedLineIdx].strokeClr = clr
+}
+
+function setFillClr(clr) {
+  gMeme.lines[gMeme.selectedLineIdx].fillClr = clr
+}
+
+function setFontSize(step){
+    getCurrLine().size += +step
+}
+
