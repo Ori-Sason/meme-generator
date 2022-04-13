@@ -22,15 +22,7 @@ const gImgs = [
 const gMeme = {
   selectedImgId: 1,
   selectedLineIdx: 0,
-  lines: [
-    {
-      txt: '',
-      size: 50,
-      align: 'left',
-      strokeClr: 'black',
-      fillClr: 'whitesmoke',
-    },
-  ],
+  lines: [],
 }
 
 function getImgs() {
@@ -65,7 +57,29 @@ function setFillClr(clr) {
   gMeme.lines[gMeme.selectedLineIdx].fillClr = clr
 }
 
-function setFontSize(step){
-    getCurrLine().size += +step
+function setFontSize(step) {
+  getCurrLine().size += +step
 }
 
+function addLine() {
+  _createMemeLine()
+  gMeme.selectedLineIdx = gMeme.lines.length - 1
+}
+
+function switchLine() {
+  if (gMeme.selectedLineIdx === gMeme.lines.length - 1) {
+    return (gMeme.selectedLineIdx = 0)
+  }
+
+  gMeme.selectedLineIdx++
+}
+
+function _createMemeLine() {
+  gMeme.lines.push({
+    txt: '',
+    size: 50,
+    align: 'left',
+    strokeClr: 'black',
+    fillClr: 'whitesmoke',
+  })
+}
