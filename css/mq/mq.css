@@ -1,5 +1,5 @@
 /* MOBILE ONLY*/
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 930px) {
   .main-header .header-links .nav-bar {
     display: flex;
 
@@ -29,9 +29,72 @@
 }
 
 /* SMALL */
+@media screen and (min-width: 470px) {
+  /* MAIN LAYOUT */
+  .main-layout {
+    width: 90%;
+    max-width: 600px;
+  }
 
-@media screen and (min-width: 900px) {
+  /* MAIN HEADER */
+  .main-header {
+    font-size: 1.3125em;
+  }
+  
+  .main-header .logo {
+    height: 2em;
+  }
+
+  /* EDITOR */
+
+  .editor-config .font-style {
+    grid-template-columns: repeat(5, 3em);
+    justify-items: unset;
+  }
+
+  .icon-btn {
+    height: 3em;
+  }
+}
+
+/* LARGE */
+@media screen and (min-width: 930px) {
   .btn-toggle-menu {
     display: none;
+  }
+
+  /* MAIN LAYOUT */
+  .main-layout {
+    width: 90%;
+    max-width: 1260px;
+  }
+
+  /* GALLERY MAIN HEADER */
+  .main-gallery .gallery-header {
+    flex-wrap: nowrap;
+  }
+
+  .main-gallery .gallery-header .gallery-search {
+    flex-grow: 1;
+    min-width: unset;
+  }
+
+  /* GALLERY IMAGES */
+  .main-gallery .image-gallery {
+    grid-template-columns: repeat(auto-fill, 210px);
+    gap: 20px;
+  }
+
+  .main-gallery .image-gallery img {
+    max-width: 210px;
+  }
+
+  /* EDITOR */
+  .main-editor {
+    flex-direction: row;
+  }
+
+  .editor-config .font-style .font-family-input {
+    font-size: 90%;
   }
 }
