@@ -117,6 +117,21 @@ function onChangeFillColor(clr) {
   renderMeme()
 }
 
+function downloadCanvas(elLink) {
+  addLine()
+  renderMeme()
+
+  //the next set timeout is because 'image onload' takes time (we didn't learn promises yet)
+  setTimeout(() => {
+    const data = gElCanvas.toDataURL()
+    elLink.href = data
+    elLink.download = 'my meme.jpg'
+
+    deleteLine()
+  }, 0)
+}
+
+/* HELPERS */
 /* will need to fix the sizes (not always 60)*/
 function getPos(idx, txt, align) {
   let x = 30
