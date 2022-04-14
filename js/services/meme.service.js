@@ -185,6 +185,7 @@ function setAlign(alignment) {
 function getFontFamilies() {
   return gFontFamilies.sort()
 }
+
 function setStrokeClr(clr) {
   gMeme.lines[gMeme.selectedLineIdx].strokeClr = clr
 }

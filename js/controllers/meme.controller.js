@@ -117,7 +117,12 @@ function onChangeFillColor(clr) {
   renderMeme()
 }
 
-function downloadCanvas(elLink) {
+let isDownloadable = false
+
+function onDownloadCanvas(ev, elLink) {
+  if (isDownloadable) return isDownloadable = false
+  
+  ev.preventDefault()  
   addLine()
   renderMeme()
 
@@ -126,9 +131,55 @@ function downloadCanvas(elLink) {
     const data = gElCanvas.toDataURL()
     elLink.href = data
     elLink.download = 'my meme.jpg'
+    isDownloadable = true
+    elLink.click()
 
     deleteLine()
+    renderMeme()
   }, 0)
+}
+
+function onShare(ev) {
+  ev.preventDefault()
+
+  addLine()
+  renderMeme()
+
+  //the next set timeout is because 'image onload' takes time (we didn't learn promises yet)
+  setTimeout(() => {
+    const imgDataUrl = gElCanvas.toDataURL('image/jpeg')
+
+    // A function to be called if request succeeds
+    function onSuccess(uploadedImgUrl) {
+      const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+      window.open(
+        `https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`,
+        '_blank'
+      )
+    }
+
+    doUploadImg(imgDataUrl, onSuccess)
+
+    deleteLine()
+    renderMeme()
+  }, 0)
+}
+
+function doUploadImg(imgDataUrl, onSuccess) {
+  const formData = new FormData()
+  formData.append('img', imgDataUrl)
+
+  fetch('//ca-upload.com/here/upload.php', {
+    method: 'POST',
+    body: formData,
+  })
+    .then((res) => res.text())
+    .then((url) => {
+      onSuccess(url)
+    })
+    .catch((err) => {
+      console.error(err)
+    })
 }
 
 /* HELPERS */
