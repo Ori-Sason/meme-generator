@@ -225,6 +225,37 @@ function getStickers() {
   return gStickers
 }
 
+function isLineClicked(clickedPos) {
+  const { pos } = getCurrLine()
+
+  if (
+    pos.x >= clickedPos.x - STICKER_SIZE / 2 &&
+    pos.x <= clickedPos.y + STICKER_SIZE / 2 &&
+    pos.y >= clickedPos.y - STICKER_SIZE / 2 &&
+    pos.y <= clickedPos.y + STICKER_SIZE / 2
+  )
+  return true
+
+  return false
+    
+}
+
+function setLineDrag(isDrag){
+  const line = getCurrLine()
+  line.isDrag = isDrag
+}
+
+function moveLine(dx, dy) {
+  const line = getCurrLine()
+  line.pos.x += dx
+  line.pos.y += dy
+}
+
+function setLineInitPos(pos){
+  const line = getCurrLine()
+  line.pos = pos
+}
+
 function _createMemeLine() {
   gMeme.lines.push({
     txt: '',
@@ -233,5 +264,7 @@ function _createMemeLine() {
     strokeClr: 'black',
     fillClr: 'whitesmoke',
     sticker: null,
+    pos: {x: 50, y: 50},
+    isDrag: false,
   })
 }

@@ -2,10 +2,28 @@
 
 function onInit() {
   renderGallery()
+  addListeners()
+}
+
+function addListeners() {
+  addMouseListeners()
+  addTouchListeners()
   window.addEventListener('resize', () => {
     resizeCanvas()
     renderMeme()
   })
+}
+
+function addMouseListeners() {
+  gElCanvas.addEventListener('mousemove', onMove)
+  gElCanvas.addEventListener('mousedown', onDown)
+  gElCanvas.addEventListener('mouseup', onUp)
+}
+
+function addTouchListeners() {
+  gElCanvas.addEventListener('touchmove', onMove)
+  gElCanvas.addEventListener('touchstart', onDown)
+  gElCanvas.addEventListener('touchend', onUp)
 }
 
 function showGallery() {
@@ -21,3 +39,4 @@ function showEditor() {
 function toggleMenu() {
   document.body.classList.toggle('menu-open')
 }
+

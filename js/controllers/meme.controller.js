@@ -7,6 +7,9 @@ let gCurrSticker = 0
 const STICKER_SIZE = 100
 let gIsDownloadable = false
 
+let gStartPos
+const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
+
 function initGenerator() {
   renderFontFamilies()
   renderStickers()
@@ -29,7 +32,8 @@ function renderMeme() {
     })
 
     const line = getCurrLine()
-    if (line !== null && (line.txt !== '' || line.sticker !== null)) markSelectedLine()
+    if (line !== null && (line.txt !== '' || line.sticker !== null))
+      markSelectedLine()
   }
 }
 
@@ -40,7 +44,7 @@ function drawText(idx, line) {
   gCtx.strokeStyle = line.strokeClr
   gCtx.fillStyle = line.fillClr
 
-  const pos = getPos(idx, line)
+  const pos = getInitialPos(idx, line)
   gCtx.fillText(line.txt, pos.x, pos.y)
   gCtx.strokeText(line.txt, pos.x, pos.y)
 }
@@ -49,7 +53,7 @@ function markSelectedLine() {
   const meme = getMeme()
   const line = getCurrLine()
 
-  const pos = getPos(meme.selectedLineIdx, line)
+  const pos = getInitialPos(meme.selectedLineIdx, line)
   drawRect(pos, line)
 }
 
@@ -58,12 +62,14 @@ function drawRect(pos, line) {
   gCtx.lineWidth = 5
   gCtx.strokeStyle = '#30a9c8'
 
-  const width = line.sticker? STICKER_SIZE + 20 : gCtx.measureText(line.txt).width + 20
-  const height = line.sticker? STICKER_SIZE + 20 : parseInt(gCtx.font) * 1.3
-  
+  const width = line.sticker
+    ? STICKER_SIZE + 20
+    : gCtx.measureText(line.txt).width + 20
+  const height = line.sticker ? STICKER_SIZE + 20 : parseInt(gCtx.font) * 1.3
+
   gCtx.rect(
     pos.x - 10,
-    pos.y - (line.sticker? 10 : parseInt(gCtx.font)),
+    pos.y - (line.sticker ? 10 : parseInt(gCtx.font)),
     width,
     height
   )
@@ -72,6 +78,9 @@ function drawRect(pos, line) {
 }
 
 function onChangeText(txt) {
+  const line = getCurrLine()
+  if(line.sticker) addLine()
+
   setLineTxt(txt)
   renderMeme()
 }
@@ -146,18 +155,23 @@ function onChangeFillColor(clr) {
 /* STICKERS*/
 
 function onAddSticker(stickerId) {
-  const meme = getMeme()
-  const idx = meme.selectedLineIdx
+  // const meme = getMeme()
+  // const idx = meme.selectedLineIdx
 
-  addLine()
+  const line = getCurrLine()
+  if (line.txt || line.sticker){
+    document.querySelector('.editor-config .text-input').value = ''
+    addLine()
+  }
+
   setSticker(getStickerUrl(stickerId))
   renderMeme()
 
-  setCurrLine(idx)
+  // setCurrLine(idx)
 }
 
 function drawSticker(idx, line) {
-  const pos = getPos(idx, line)
+  const pos = getInitialPos(idx, line)
   if (idx === 1) pos.y = gElCanvas.height - STICKER_SIZE
 
   const img = new Image()
@@ -262,23 +276,28 @@ function doUploadImg(imgDataUrl, onSuccess) {
 
 /* HELPERS */
 /* will need to fix the sizes (not always 60)*/
-function getPos(idx, line) {
+function getInitialPos(idx, line) {
   let x = 30
-  
+
   if (line.align === 'right') {
-    x = gElCanvas.width - 30 - (line.sticker? STICKER_SIZE : gCtx.measureText(line.txt).width)
+    x =
+      gElCanvas.width -
+      30 -
+      (line.sticker ? STICKER_SIZE : gCtx.measureText(line.txt).width)
   } else if (line.align === 'center') {
-    x = (gElCanvas.width - (line.sticker? STICKER_SIZE : gCtx.measureText(line.txt).width)) / 2
+    x =
+      (gElCanvas.width -
+        (line.sticker ? STICKER_SIZE : gCtx.measureText(line.txt).width)) /
+      2
   }
 
-  switch (idx) {
-    case 0:
-      return { x, y: 60 }
-    case 1:
-      return { x, y: gElCanvas.height - (line.sticker? STICKER_SIZE : 20) }
-    default:
-      return { x, y: 60 * idx }
-  }
+  let y = 60 * idx
+  if (idx === 0) y = 60
+  else if (idx === 1) y = gElCanvas.height - (line.sticker ? STICKER_SIZE : 20)
+
+  const pos = { x, y }
+  setLineInitPos(pos)
+  return pos
 }
 
 /* FIX RESIZING */
@@ -290,4 +309,45 @@ function resizeCanvas() {
   gElCanvas.width = elContainer.offsetWidth - 50
   // Unless needed, better keep height fixed.  /* FIX */
   gElCanvas.height = elContainer.offsetHeight - 50
+}
+
+/* DRAG AND DROP */
+function onDown(ev) {
+  const pos = getEvPos(ev)
+  if (!isLineClicked(pos)) return
+  setLineDrag(true)
+  gStartPos = pos
+  document.body.style.cursor = 'grabbing' /* FIX */
+}
+
+function onMove(ev) {
+  const meme = getMeme()
+  if (!meme.isDrag) return
+  const pos = getEvPos(ev)
+  const dx = pos.x - gStartPos.x
+  const dy = pos.y - gStartPos.y
+  moveLine(dx, dy)
+  gStartPos = pos
+  renderMeme()
+}
+
+function onUp() {
+  setLineDrag(false)
+  document.body.style.cursor = 'grab' /* FIX */
+}
+
+function getEvPos(ev) {
+  let pos = {
+    x: ev.offsetX,
+    y: ev.offsetY,
+  }
+  if (gTouchEvs.includes(ev.type)) {
+    ev.preventDefault()
+    ev = ev.changedTouches[0]
+    pos = {
+      x: ev.pageX - ev.target.offsetLeft,
+      y: ev.pageY - ev.target.offsetTop,
+    }
+  }
+  return pos
 }
