@@ -28,7 +28,7 @@
   }
 }
 
-/* SMALL */
+/* MEDIUM */
 @media screen and (min-width: 470px) {
   /* MAIN LAYOUT */
   .main-layout {
@@ -40,7 +40,7 @@
   .main-header {
     font-size: 1.3125em;
   }
-  
+
   .main-header .logo {
     height: 2em;
   }
@@ -55,6 +55,10 @@
   .icon-btn {
     height: 3em;
   }
+
+  .editor-config .save-meme ul {
+    flex-direction: row;
+  }
 }
 
 /* LARGE */
@@ -64,6 +68,10 @@
   }
 
   /* MAIN LAYOUT */
+  body {
+    font-size: 1.2em;
+  }
+
   .main-layout {
     width: 90%;
     max-width: 1260px;

@@ -36,6 +36,11 @@ section.hide {
   content: '\f1e0';
 }
 
+.fa.fa-save::before {
+  font-family: fa;
+  content: '\f0c7';
+}
+
 .fa.fa-download::before {
   font-family: fa;
   content: '\f56d';
