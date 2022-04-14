@@ -226,21 +226,33 @@ function getStickers() {
 }
 
 function isLineClicked(clickedPos) {
-  const { pos } = getCurrLine()
 
-  if (
-    pos.x >= clickedPos.x - STICKER_SIZE / 2 &&
-    pos.x <= clickedPos.y + STICKER_SIZE / 2 &&
-    pos.y >= clickedPos.y - STICKER_SIZE / 2 &&
-    pos.y <= clickedPos.y + STICKER_SIZE / 2
+  function isStickerInArea(pos, width, height) {
+    return clickedPos.x >= pos.x - width / 2 - 10 &&
+      clickedPos.x <= pos.x + width / 2 + 10 &&
+      clickedPos.y >= pos.y - height / 2 - 10 &&
+      clickedPos.y <= pos.y + height / 2 + 10
+  }
+
+  function isTextInArea(pos, width, height) {
+    return clickedPos.x >= pos.x - 10 &&
+      clickedPos.x <= pos.x + width + 10 &&
+      clickedPos.y >= pos.y - height - 10 &&
+      clickedPos.y <= pos.y - 10
+  }
+
+  const lineIdx = gMeme.lines.findIndex(
+    (line) =>
+      (line.sticker && isStickerInArea(line.pos, STICKER_SIZE, STICKER_SIZE)) ||
+      (line.txt && isTextInArea(line.pos, gCtx.measureText(line.txt).width, line.size))
   )
-  return true
 
-  return false
-    
+  if (lineIdx !== -1) setCurrLine(lineIdx)
+
+  return lineIdx !== -1
 }
 
-function setLineDrag(isDrag){
+function setLineDrag(isDrag) {
   const line = getCurrLine()
   line.isDrag = isDrag
 }
@@ -251,20 +263,21 @@ function moveLine(dx, dy) {
   line.pos.y += dy
 }
 
-function setLineInitPos(pos){
+function setLineInitPos(pos) {
   const line = getCurrLine()
   line.pos = pos
 }
 
 function _createMemeLine() {
   gMeme.lines.push({
+    id: gMeme.lines.length,
     txt: '',
     size: 50,
     align: 'left',
     strokeClr: 'black',
     fillClr: 'whitesmoke',
     sticker: null,
-    pos: {x: 50, y: 50},
+    pos: { x: 30, y: 60 },
     isDrag: false,
   })
 }
