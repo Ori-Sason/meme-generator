@@ -105,4 +105,15 @@
   .editor-config .font-style .font-family-input {
     font-size: 90%;
   }
+
+  .editor-config .stickers img:hover {
+    position: absolute;
+    bottom: 25px;
+    transform: translateX(-50%);
+    height: 70px;
+  }
+
+  .editor-config .stickers button:hover {
+    font-size: 1.5em;
+  }
 }

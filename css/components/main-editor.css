@@ -95,17 +95,6 @@
   cursor: pointer;
 }
 
-.editor-config .stickers img:hover{
-  position: absolute;
-  bottom: 25px;
-  transform: translateX(-50%);
-  height: 70px;
-}
-
-.editor-config .stickers button:hover {
-  font-size: 1.5em;
-}
-
 .editor-config .save-meme ul {
   display: flex;
   flex-direction: column;
