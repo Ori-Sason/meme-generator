@@ -17,3 +17,7 @@ function showEditor() {
   document.querySelector('.main-gallery').classList.add('hide')
   document.querySelector('.main-editor').classList.remove('hide')
 }
+
+function toggleMenu() {
+  document.body.classList.toggle('menu-open')
+}

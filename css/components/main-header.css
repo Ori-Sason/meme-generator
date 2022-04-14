@@ -20,7 +20,7 @@
   height: 3em; /* FIX */
 }
 
-.main-header .header-links ul {
+.main-header .header-links .nav-bar {
   display: flex;
 }
 
@@ -32,4 +32,18 @@
 .active-page {
   color: var(--green-clr-200);
   background-color: var(--bg-clr-100);
+}
+
+.main-header .btn-toggle-menu{
+  border-radius: 50%;
+  height: 2em;
+  aspect-ratio: 1/1;
+}
+
+.main-header .btn-toggle-menu::before {
+  content: '☰';
+}
+
+body.menu-open .main-header .btn-toggle-menu::before {
+  content: 'X';
 }
