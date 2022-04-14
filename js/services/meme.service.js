@@ -39,31 +39,31 @@ const gImgs = [
   {
     id: 6,
     url: 'img/gallery/6.jpg',
-    keywords: ['actors', 'movies' , 'men'],
+    keywords: ['actors', 'movies', 'men'],
     alt: '',
   },
   {
     id: 7,
     url: 'img/gallery/7.jpg',
-    keywords: ['baby', 'smile' , 'funny'],
+    keywords: ['baby', 'smile', 'funny'],
     alt: 'happy baby',
   },
   {
     id: 8,
     url: 'img/gallery/8.jpg',
-    keywords: ['actors', 'movies' , 'men'],
+    keywords: ['actors', 'movies', 'men'],
     alt: '',
   },
   {
     id: 9,
     url: 'img/gallery/9.jpg',
-    keywords: ['baby', 'smile' , 'funny'],
+    keywords: ['baby', 'smile', 'funny'],
     alt: 'happy baby',
   },
   {
     id: 10,
     url: 'img/gallery/10.jpg',
-    keywords: ['politician', 'smile' , 'men'],
+    keywords: ['politician', 'smile', 'men'],
     alt: 'Barack Obama',
   },
   {
@@ -81,39 +81,52 @@ const gImgs = [
   {
     id: 13,
     url: 'img/gallery/13.jpg',
-    keywords: ['actors', 'movies' , 'men', 'smile'],
+    keywords: ['actors', 'movies', 'men', 'smile'],
     alt: 'Leonardo DiCaprio',
   },
   {
     id: 14,
     url: 'img/gallery/14.jpg',
-    keywords: ['actors', 'movies' , 'men'],
+    keywords: ['actors', 'movies', 'men'],
     alt: '',
   },
   {
     id: 15,
     url: 'img/gallery/15.jpg',
-    keywords: ['actors', 'movies' , 'men'],
+    keywords: ['actors', 'movies', 'men'],
     alt: '',
   },
   {
     id: 16,
     url: 'img/gallery/16.jpg',
-    keywords: ['actors', 'movies' , 'men'],
+    keywords: ['actors', 'movies', 'men'],
     alt: 'Dr. Evil',
   },
   {
     id: 17,
     url: 'img/gallery/17.jpg',
-    keywords: ['actors', 'movies' , 'men'],
+    keywords: ['actors', 'movies', 'men'],
     alt: 'vladimir Putin',
   },
   {
     id: 18,
     url: 'img/gallery/18.jpg',
-    keywords: ['actors', 'movies' , 'men'],
+    keywords: ['actors', 'movies', 'men'],
     alt: 'Toy Story',
   },
+]
+
+const gStickers = [
+  { id: 1, url: 'img/stickers/bar-chart.png' },
+  { id: 2, url: 'img/stickers/cool.png' },
+  { id: 3, url: 'img/stickers/headache.png' },
+  { id: 4, url: 'img/stickers/idea.png' },
+  { id: 5, url: 'img/stickers/nice.png' },
+  { id: 6, url: 'img/stickers/no-way.png' },
+  { id: 7, url: 'img/stickers/oh-yeah.png' },
+  { id: 8, url: 'img/stickers/oops.png' },
+  { id: 9, url: 'img/stickers/self-confidence.png' },
+  { id: 10, url: 'img/stickers/yay.png' },
 ]
 
 const gMeme = {
@@ -133,6 +146,10 @@ function getMeme() {
 function getCurrLine() {
   if (gMeme.lines.length === 0) return null
   return gMeme.lines[gMeme.selectedLineIdx]
+}
+
+function setCurrLine(idx) {
+  gMeme.selectedLineIdx = idx
 }
 
 function getImg(id) {
@@ -165,10 +182,10 @@ function deleteLine() {
 
   gMeme.lines.splice(gMeme.selectedLineIdx)
   gMeme.selectedLineIdx--
-  
+
   if (gMeme.selectedLineIdx < 0) gMeme.selectedLineIdx = 0
 
-  if(gMeme.lines.length === 0){
+  if (gMeme.lines.length === 0) {
     _createMemeLine()
   }
 }
@@ -194,6 +211,20 @@ function setFillClr(clr) {
   gMeme.lines[gMeme.selectedLineIdx].fillClr = clr
 }
 
+function setSticker(src) {
+  const line = getCurrLine()
+  line.sticker = src
+}
+
+function getStickerUrl(id) {
+  const sticker = gStickers.find((sticker) => sticker.id === +id)
+  return sticker.url
+}
+
+function getStickers() {
+  return gStickers
+}
+
 function _createMemeLine() {
   gMeme.lines.push({
     txt: '',
@@ -201,5 +232,6 @@ function _createMemeLine() {
     align: 'left',
     strokeClr: 'black',
     fillClr: 'whitesmoke',
+    sticker: null,
   })
 }

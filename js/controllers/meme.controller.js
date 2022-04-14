@@ -3,9 +3,12 @@
 const gElCanvas = document.getElementById('canvas')
 const gCtx = gElCanvas.getContext('2d')
 let gCurrFontFamily = 'impact'
+let gCurrSticker = 0
+let gIsDownloadable = false
 
 function initGenerator() {
   renderFontFamilies()
+  renderStickers()
   resizeCanvas()
   addLine()
   renderMeme()
@@ -19,7 +22,10 @@ function renderMeme() {
 
   img.onload = () => {
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
-    meme.lines.forEach((line, idx) => drawText(idx, line))
+    meme.lines.forEach((line, idx) => {
+      if (line.sticker) drawSticker(line, idx)
+      else if (line.txt) drawText(idx, line)
+    })
 
     const line = getCurrLine()
     if (line !== null && line.txt !== '') markSelectedLine()
@@ -28,7 +34,6 @@ function renderMeme() {
 
 function drawText(idx, { txt, size, align, fillClr, strokeClr }) {
   if (txt.trim() === '') return
-  //   gCtx.font = gCtx.font.replace(/^\d+/, size)
   gCtx.font = `${size}px ${gCurrFontFamily}`
   gCtx.lineWidth = size / 25
   gCtx.strokeStyle = strokeClr
@@ -66,6 +71,8 @@ function onChangeText(txt) {
   renderMeme()
 }
 
+/* TEXT SELECTION */
+
 function onSwitchLine() {
   switchLine()
   showCurrTextOnInput()
@@ -92,6 +99,8 @@ function onDeleteLine() {
   renderMeme()
 }
 
+/* FONT STYLE */
+
 function onChangeFontSize(diff) {
   setFontSize(diff)
   renderMeme()
@@ -107,6 +116,18 @@ function onFontFamilyChange(name) {
   renderMeme()
 }
 
+function renderFontFamilies() {
+  const names = getFontFamilies()
+  let strHtml = ''
+  strHtml = names.map(
+    (name) => `<option value="${name}">${getCamelCase(name)}</option>`
+  )
+
+  const elSelection = document.querySelector('.font-family-input')
+  elSelection.innerHTML = strHtml.join('')
+  elSelection.value = gCurrFontFamily
+}
+
 function onChangeStrokeColor(clr) {
   setStrokeClr(clr)
   renderMeme()
@@ -117,12 +138,64 @@ function onChangeFillColor(clr) {
   renderMeme()
 }
 
-let isDownloadable = false
+/* STICKERS*/
 
+function onAddSticker(stickerId) {
+  const meme = getMeme()
+  const idx = meme.selectedLineIdx
+
+  addLine()
+  setSticker(getStickerUrl(stickerId))
+  renderMeme()
+
+  setCurrLine(idx)
+}
+
+function drawSticker(line, idx) {
+  const pos = getPos(idx, 'M', line.align)
+  if (idx === 1) pos.y = gElCanvas.height - 100
+
+  const img = new Image()
+  img.src = line.sticker
+
+  img.onload = () => {
+    gCtx.drawImage(img, pos.x, pos.y, 100, 100)
+  }
+}
+
+function renderStickers() {
+  const stickers = getStickers()
+  let strHtml = '<li><button onclick="onChangeStickers(-1)">&lt;</button></li>'
+
+  for (let i = 0; i < 3; i++) {
+    let stickerId = gCurrSticker + i
+    if (stickerId >= stickers.length)
+      stickerId = gCurrSticker + i - stickers.length
+
+    strHtml += `<li><img src="${stickers[stickerId].url}" onclick="onAddSticker(${stickers[stickerId].id})"></li>`
+  }
+
+  strHtml += '<li><button onclick="onChangeStickers(1)">&gt;</button></li>'
+
+  document.querySelector('.stickers-list').innerHTML = strHtml
+}
+
+function onChangeStickers(diff) {
+  gCurrSticker += +diff
+
+  const stickers = getStickers()
+
+  if (gCurrSticker === -1) gCurrSticker = stickers.length - 1
+  else if (gCurrSticker === stickers.length) gCurrSticker = 0
+
+  renderStickers()
+}
+
+/* SAVE - MEME*/
 function onDownloadCanvas(ev, elLink) {
-  if (isDownloadable) return isDownloadable = false
-  
-  ev.preventDefault()  
+  if (gIsDownloadable) return (gIsDownloadable = false)
+
+  ev.preventDefault()
   addLine()
   renderMeme()
 
@@ -131,7 +204,7 @@ function onDownloadCanvas(ev, elLink) {
     const data = gElCanvas.toDataURL()
     elLink.href = data
     elLink.download = 'my meme.jpg'
-    isDownloadable = true
+    gIsDownloadable = true
     elLink.click()
 
     deleteLine()
@@ -212,19 +285,4 @@ function resizeCanvas() {
   gElCanvas.width = elContainer.offsetWidth - 50
   // Unless needed, better keep height fixed.  /* FIX */
   gElCanvas.height = elContainer.offsetHeight - 50
-}
-
-function renderFontFamilies() {
-  const names = getFontFamilies()
-  let strHtml = ''
-  names.map(
-    (name) =>
-      (strHtml += `
-    <option value="${name}">${getCamelCase(name)}</option>
-  `)
-  )
-
-  const elSelection = document.querySelector('.font-family-input')
-  elSelection.innerHTML = strHtml
-  elSelection.value = gCurrFontFamily
 }
