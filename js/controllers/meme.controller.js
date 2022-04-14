@@ -4,6 +4,7 @@ const gElCanvas = document.getElementById('canvas')
 const gCtx = gElCanvas.getContext('2d')
 let gCurrFontFamily = 'impact'
 let gCurrSticker = 0
+const STICKER_SIZE = 100
 let gIsDownloadable = false
 
 function initGenerator() {
@@ -23,44 +24,48 @@ function renderMeme() {
   img.onload = () => {
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
     meme.lines.forEach((line, idx) => {
-      if (line.sticker) drawSticker(line, idx)
+      if (line.sticker) drawSticker(idx, line)
       else if (line.txt) drawText(idx, line)
     })
 
     const line = getCurrLine()
-    if (line !== null && line.txt !== '') markSelectedLine()
+    if (line !== null && (line.txt !== '' || line.sticker !== null)) markSelectedLine()
   }
 }
 
-function drawText(idx, { txt, size, align, fillClr, strokeClr }) {
-  if (txt.trim() === '') return
-  gCtx.font = `${size}px ${gCurrFontFamily}`
-  gCtx.lineWidth = size / 25
-  gCtx.strokeStyle = strokeClr
-  gCtx.fillStyle = fillClr
+function drawText(idx, line) {
+  if (line.txt.trim() === '') return
+  gCtx.font = `${line.size}px ${gCurrFontFamily}`
+  gCtx.lineWidth = line.size / 25
+  gCtx.strokeStyle = line.strokeClr
+  gCtx.fillStyle = line.fillClr
 
-  const pos = getPos(idx, txt, align)
-  gCtx.fillText(txt, pos.x, pos.y)
-  gCtx.strokeText(txt, pos.x, pos.y)
+  const pos = getPos(idx, line)
+  gCtx.fillText(line.txt, pos.x, pos.y)
+  gCtx.strokeText(line.txt, pos.x, pos.y)
 }
 
 function markSelectedLine() {
   const meme = getMeme()
   const line = getCurrLine()
 
-  const pos = getPos(meme.selectedLineIdx, line.txt, line.align)
-  drawRect(pos, line.txt)
+  const pos = getPos(meme.selectedLineIdx, line)
+  drawRect(pos, line)
 }
 
-function drawRect(pos, txt) {
+function drawRect(pos, line) {
   gCtx.beginPath()
-  gCtx.strokeStyle = 'whitesmoke'
+  gCtx.lineWidth = 5
+  gCtx.strokeStyle = '#30a9c8'
 
+  const width = line.sticker? STICKER_SIZE + 20 : gCtx.measureText(line.txt).width + 20
+  const height = line.sticker? STICKER_SIZE + 20 : parseInt(gCtx.font) * 1.3
+  
   gCtx.rect(
     pos.x - 10,
-    pos.y - parseInt(gCtx.font),
-    gCtx.measureText(txt).width + 20,
-    parseInt(gCtx.font) * 1.3
+    pos.y - (line.sticker? 10 : parseInt(gCtx.font)),
+    width,
+    height
   )
 
   gCtx.stroke()
@@ -151,15 +156,15 @@ function onAddSticker(stickerId) {
   setCurrLine(idx)
 }
 
-function drawSticker(line, idx) {
-  const pos = getPos(idx, 'M', line.align)
-  if (idx === 1) pos.y = gElCanvas.height - 100
+function drawSticker(idx, line) {
+  const pos = getPos(idx, line)
+  if (idx === 1) pos.y = gElCanvas.height - STICKER_SIZE
 
   const img = new Image()
   img.src = line.sticker
 
   img.onload = () => {
-    gCtx.drawImage(img, pos.x, pos.y, 100, 100)
+    gCtx.drawImage(img, pos.x, pos.y, STICKER_SIZE, STICKER_SIZE)
   }
 }
 
@@ -257,20 +262,20 @@ function doUploadImg(imgDataUrl, onSuccess) {
 
 /* HELPERS */
 /* will need to fix the sizes (not always 60)*/
-function getPos(idx, txt, align) {
+function getPos(idx, line) {
   let x = 30
-
-  if (align === 'right') {
-    x = gElCanvas.width - gCtx.measureText(txt).width - 30
-  } else if (align === 'center') {
-    x = (gElCanvas.width - gCtx.measureText(txt).width) / 2
+  
+  if (line.align === 'right') {
+    x = gElCanvas.width - 30 - (line.sticker? STICKER_SIZE : gCtx.measureText(line.txt).width)
+  } else if (line.align === 'center') {
+    x = (gElCanvas.width - (line.sticker? STICKER_SIZE : gCtx.measureText(line.txt).width)) / 2
   }
 
   switch (idx) {
     case 0:
       return { x, y: 60 }
     case 1:
-      return { x, y: gElCanvas.height - 20 }
+      return { x, y: gElCanvas.height - (line.sticker? STICKER_SIZE : 20) }
     default:
       return { x, y: 60 * idx }
   }
