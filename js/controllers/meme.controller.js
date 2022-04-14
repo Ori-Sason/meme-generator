@@ -53,7 +53,7 @@ function drawRect(pos, txt) {
 
   gCtx.rect(
     pos.x - 10,
-    pos.y - parseInt(gCtx.font) * 1.1,
+    pos.y - parseInt(gCtx.font),
     gCtx.measureText(txt).width + 20,
     parseInt(gCtx.font) * 1.3
   )
@@ -117,7 +117,7 @@ function onChangeFillColor(clr) {
   renderMeme()
 }
 
-/* will need to fix the sizes (not always 50)*/
+/* will need to fix the sizes (not always 60)*/
 function getPos(idx, txt, align) {
   let x = 30
 
@@ -129,11 +129,11 @@ function getPos(idx, txt, align) {
 
   switch (idx) {
     case 0:
-      return { x, y: 50 }
+      return { x, y: 60 }
     case 1:
       return { x, y: gElCanvas.height - 20 }
     default:
-      return { x, y: 50 * idx }
+      return { x, y: 60 * idx }
   }
 }
 
