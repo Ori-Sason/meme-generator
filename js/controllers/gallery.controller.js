@@ -19,15 +19,16 @@ function renderGallery() {
 }
 
 function onImgSelect(id) {
-    setImg(id)
-    showEditor()
-    
-    initGenerator()
+  createNewMeme()
+  setImg(id)
+  showEditor()
+
+  initGenerator()
 }
 
 /* USER UPLOAD IMAGE*/
 
-function onUserImg(ev){
+function onUserImg(ev) {
   loadImageFromInput(ev, renderImg)
 }
 
@@ -35,9 +36,9 @@ function loadImageFromInput(ev, onImageReady) {
   var reader = new FileReader()
 
   reader.onload = (event) => {
-      var img = new Image()
-      img.src = event.target.result
-      img.onload = onImageReady.bind(null, img)
+    var img = new Image()
+    img.src = event.target.result
+    img.onload = onImageReady.bind(null, img)
   }
   reader.readAsDataURL(ev.target.files[0])
 }

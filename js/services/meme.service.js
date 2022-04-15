@@ -2,6 +2,7 @@
 
 //KEYWORDS: animal, politician, baby, dog, cat, men, women, actors, movies, funny, comic, smile
 
+
 const gKeywordSearchCountMap = {}
 const gFontFamilies = ['impact', 'poppins', 'fontdiner-swanky', 'lobster']
 
@@ -129,10 +130,21 @@ const gStickers = [
   { id: 10, url: 'img/stickers/yay.png' },
 ]
 
-const gMeme = {
-  selectedImgId: 1,
-  selectedLineIdx: 0,
-  lines: [],
+let gStorageMemes = []
+let gMeme = {}
+
+function createNewMeme() {
+  gMeme = {
+    id:
+      gStorageMemes.length === 0
+        ? 0
+        : gStorageMemes[gStorageMemes.length - 1].id + 1,
+    
+    selectedImgId: 1,
+    selectedLineIdx: 0,
+    fontFamily: 'impact',
+    lines: [],
+  }
 }
 
 function getImgs() {
@@ -203,6 +215,10 @@ function getFontFamilies() {
   return gFontFamilies.sort()
 }
 
+function setFontFamily(fontName){
+  gMeme.fontFamily = fontName
+}
+
 function setStrokeClr(clr) {
   gMeme.lines[gMeme.selectedLineIdx].strokeClr = clr
 }
@@ -226,25 +242,29 @@ function getStickers() {
 }
 
 function isLineClicked(clickedPos) {
-
   function isStickerInArea(pos, width, height) {
-    return clickedPos.x >= pos.x - width / 2 - 10 &&
+    return (
+      clickedPos.x >= pos.x - width / 2 - 10 &&
       clickedPos.x <= pos.x + width / 2 + 10 &&
       clickedPos.y >= pos.y - height / 2 - 10 &&
       clickedPos.y <= pos.y + height / 2 + 10
+    )
   }
 
   function isTextInArea(pos, width, height) {
-    return clickedPos.x >= pos.x - 10 &&
+    return (
+      clickedPos.x >= pos.x - 10 &&
       clickedPos.x <= pos.x + width + 10 &&
       clickedPos.y >= pos.y - height - 10 &&
       clickedPos.y <= pos.y - 10
+    )
   }
 
   const lineIdx = gMeme.lines.findIndex(
     (line) =>
       (line.sticker && isStickerInArea(line.pos, line.size, line.size)) ||
-      (line.txt && isTextInArea(line.pos, gCtx.measureText(line.txt).width, line.size))
+      (line.txt &&
+        isTextInArea(line.pos, gCtx.measureText(line.txt).width, line.size))
   )
 
   if (lineIdx !== -1) setCurrLine(lineIdx)
@@ -280,4 +300,23 @@ function _createMemeLine() {
     pos: { x: 30, y: 60 },
     isDrag: false,
   })
+}
+
+function saveMeme() {
+  const memeIdx = getMemeIdxInStorage(gMeme.id)
+
+  if (memeIdx === -1) gStorageMemes.push(gMeme)
+  else gStorageMemes[memeIdx] = gMeme
+
+  saveToStorage(STORAGE_KEY, gStorageMemes)
+}
+
+function loadMeme(id){
+  const memeIdx = getMemeIdxInStorage(id)
+  gMeme = gStorageMemes[memeIdx]
+  initGenerator() // FIX - THIS SHOULD BE REPLACES FROM THE MEMES CONTROLLER (HIDE + INIT)
+}
+
+function getMemeIdxInStorage(id) {
+  return gStorageMemes.findIndex((meme) => meme.id === id)
 }

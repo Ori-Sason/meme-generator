@@ -11,6 +11,7 @@ let gStartPos
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 
 function initGenerator() {
+  _clearEditorTxtInput()
   renderFontFamilies()
   renderStickers()
   resizeCanvas()
@@ -44,7 +45,8 @@ function renderMeme() {
 
 function drawText(line) {
   if (line.txt.trim() === '') return
-  gCtx.font = `${line.size}px ${gCurrFontFamily}`
+  const meme = getMeme()
+  gCtx.font = `${line.size}px ${meme.fontFamily}`
   gCtx.lineWidth = line.size / 25
   gCtx.strokeStyle = line.strokeClr
   gCtx.fillStyle = line.fillClr
@@ -130,8 +132,8 @@ function onChangeAlignment(alignment) {
   renderMeme()
 }
 
-function onFontFamilyChange(name) {
-  gCurrFontFamily = name
+function onFontFamilyChange(fontName) {
+  setFontFamily(fontName)
   renderMeme()
 }
 
@@ -142,9 +144,10 @@ function renderFontFamilies() {
     (name) => `<option value="${name}">${getCamelCase(name)}</option>`
   )
 
-  const elSelection = document.querySelector('.font-family-input')
-  elSelection.innerHTML = strHtml.join('')
-  elSelection.value = gCurrFontFamily
+  document.querySelector('.font-family-input').innerHTML = strHtml.join('')
+  
+  const meme = getMeme()
+  document.querySelector('.font-family-input').value = meme.fontFamily
 }
 
 function onChangeStrokeColor(clr) {
@@ -162,7 +165,7 @@ function onChangeFillColor(clr) {
 function onAddSticker(stickerId) {
   let line = getCurrLine()
   if (line.txt || line.sticker) {
-    document.querySelector('.editor-config .text-input').value = ''
+    _clearEditorTxtInput()
     addLine()
     line = getCurrLine()
   }
@@ -220,7 +223,7 @@ function onChangeStickers(diff) {
   renderStickers()
 }
 
-/* SAVE - MEME*/
+/* SAVE AND SHARE - MEME*/
 function onDownloadCanvas(ev, elLink) {
   if (gIsDownloadable) return (gIsDownloadable = false)
 
@@ -282,6 +285,14 @@ function doUploadImg(imgDataUrl, onSuccess) {
     .catch((err) => {
       console.error(err)
     })
+}
+
+function onSaveMeme(){
+  saveMeme()
+}
+
+function onLoadMeme(id){
+  loadMeme(id)
 }
 
 /* HELPERS */
@@ -362,6 +373,9 @@ function getEvPos(ev) {
   return pos
 }
 
+function _clearEditorTxtInput(){
+  document.querySelector('.editor-config .text-input').value = ''
+}
 
 //* FIX - DELETE THIS FUNCTION */
 function drawArc() {

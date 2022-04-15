@@ -1,6 +1,11 @@
 'use strict'
 
+const STORAGE_KEY = 'memeDB'
+
 function onInit() {
+  const storagedMemes = getFromStorage(STORAGE_KEY)
+  if(storagedMemes) gStorageMemes = storagedMemes
+  
   renderGallery()
   addListeners()
 }
