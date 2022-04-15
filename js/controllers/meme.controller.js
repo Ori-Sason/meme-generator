@@ -4,7 +4,6 @@ const gElCanvas = document.getElementById('canvas')
 const gCtx = gElCanvas.getContext('2d')
 let gCurrFontFamily = 'impact'
 let gCurrSticker = 0
-const STICKER_SIZE = 100
 let gIsDownloadable = false
 
 let gStartPos
@@ -65,14 +64,14 @@ function drawRect(line) {
   gCtx.strokeStyle = '#30a9c8'
 
   const width = line.sticker
-    ? STICKER_SIZE + 20
+    ? line.size + 20
     : gCtx.measureText(line.txt).width + 20
   
-  const height = line.sticker ? STICKER_SIZE + 20 : parseInt(gCtx.font) * 1.3
+  const height = line.sticker ? line.size + 20 : parseInt(gCtx.font) * 1.3
 
   gCtx.rect(
-    line.pos.x - 10 - (line.sticker ? STICKER_SIZE / 2 : 0),
-    line.pos.y - (line.sticker ? STICKER_SIZE / 2 + 10 : parseInt(gCtx.font)),
+    line.pos.x - 10 - (line.sticker ? line.size / 2 : 0),
+    line.pos.y - (line.sticker ? line.size / 2 + 10 : parseInt(gCtx.font)),
     width,
     height
   )
@@ -183,10 +182,10 @@ function drawSticker(line) {
   if(img.complete){
     gCtx.drawImage(
       img,
-      pos.x - STICKER_SIZE / 2,
-      pos.y - STICKER_SIZE / 2,
-      STICKER_SIZE,
-      STICKER_SIZE
+      pos.x - line.size / 2,
+      pos.y - line.size / 2,
+      line.size,
+      line.size
     )
   }
 }
@@ -286,23 +285,23 @@ function doUploadImg(imgDataUrl, onSuccess) {
 /* HELPERS */
 /* will need to fix the sizes (not always 60)*/
 function setInitialPos(idx, line) {
-  let x = line.sticker? STICKER_SIZE : 30
+  let x = line.sticker? line.size : 30
 
   if (line.align === 'right') {
     x =
       gElCanvas.width -
       30 -
-      (line.sticker ? STICKER_SIZE : gCtx.measureText(line.txt).width)
+      (line.sticker ? line.size : gCtx.measureText(line.txt).width)
   } else if (line.align === 'center') {
     x =
       (gElCanvas.width -
-        (line.sticker ? STICKER_SIZE : gCtx.measureText(line.txt).width)) /
+        (line.sticker ? line.size : gCtx.measureText(line.txt).width)) /
       2
   }
 
   let y = 60 * line.id
-  if (line.id === 0) y = (line.sticker? STICKER_SIZE : 60)
-  else if (line.id === 1) y = (gElCanvas.height - (line.sticker ? STICKER_SIZE : 20))
+  if (line.id === 0) y = (line.sticker? line.size : 60)
+  else if (line.id === 1) y = (gElCanvas.height - (line.sticker ? line.size : 20))
 
   const pos = { x, y }
   setLineInitPos(pos)

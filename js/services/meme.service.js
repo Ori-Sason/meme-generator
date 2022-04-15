@@ -243,7 +243,7 @@ function isLineClicked(clickedPos) {
 
   const lineIdx = gMeme.lines.findIndex(
     (line) =>
-      (line.sticker && isStickerInArea(line.pos, STICKER_SIZE, STICKER_SIZE)) ||
+      (line.sticker && isStickerInArea(line.pos, line.size, line.size)) ||
       (line.txt && isTextInArea(line.pos, gCtx.measureText(line.txt).width, line.size))
   )
 
