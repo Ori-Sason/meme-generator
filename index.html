@@ -93,11 +93,11 @@
                   <!-- font families are rendered here -->
               </select>
               
-              <div class="color-btn">
+              <div class="invisible-btn">
                   <div class="icon-btn"><img src="img/icons/text stroke.png" alt="A stroke" title="Text outline color"></div>
                   <input type="color" oninput="onChangeStrokeColor(this.value)"/>
               </div>
-              <div class="color-btn">
+              <div class="invisible-btn">
                 <div class="icon-btn"><img src="img/icons/paint-board-and-brush.png" alt="paint platte" title="Text fill color"></div>
                 <input type="color" oninput="onChangeFillColor(this.value)" value="#f5f5f5" />
               </div>
@@ -126,6 +126,7 @@
     </div>
 
     <script src="js/services/utils.service.js"></script>
+    <script src="js/services/storage.service.js"></script>
     <script src="js/services/meme.service.js"></script>
     <script src="js/controllers/gallery.controller.js"></script>
     <script src="js/controllers/meme.controller.js"></script>

@@ -5,6 +5,7 @@ const gCtx = gElCanvas.getContext('2d')
 let gCurrFontFamily = 'impact'
 let gCurrSticker = 0
 let gIsDownloadable = false
+let gUserImg = null
 
 let gStartPos
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
@@ -20,15 +21,17 @@ function initGenerator() {
 function renderMeme() {
   const meme = getMeme()
 
-  const img = new Image()
+  let img = new Image()
   img.src = getImg(meme.selectedImgId).url
-
+  
+  if(gUserImg) img.src = gUserImg.src
+  
   img.onload = () => {
   // if(img.complete){
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
-    meme.lines.forEach((line, idx) => {
+    meme.lines.forEach((line) => {
       if (line.sticker) drawSticker(line)
-      else if (line.txt) drawText(idx, line)
+      else if (line.txt) drawText(line)
     })
 
     const line = getCurrLine()
@@ -39,14 +42,13 @@ function renderMeme() {
   // requestAnimationFrame(renderMeme)
 }
 
-function drawText(idx, line) {
+function drawText(line) {
   if (line.txt.trim() === '') return
   gCtx.font = `${line.size}px ${gCurrFontFamily}`
   gCtx.lineWidth = line.size / 25
   gCtx.strokeStyle = line.strokeClr
   gCtx.fillStyle = line.fillClr
 
-  // const pos = setInitialPos(idx, line)
   const pos = line.pos
 
   gCtx.fillText(line.txt, pos.x, pos.y)
@@ -105,7 +107,7 @@ function onAddLine() {
   if (elInput.value.trim() === '') return
 
   addLine()
-  setInitialPos(null, getCurrLine())
+  setInitialPos(getCurrLine())
   elInput.value = ''
   renderMeme()
 }
@@ -167,7 +169,7 @@ function onAddSticker(stickerId) {
 
   setSticker(getStickerUrl(stickerId))
 
-  const pos = setInitialPos(line.id, line)
+  const pos = setInitialPos(line)
 
   renderMeme()
 }
@@ -284,7 +286,7 @@ function doUploadImg(imgDataUrl, onSuccess) {
 
 /* HELPERS */
 /* will need to fix the sizes (not always 60)*/
-function setInitialPos(idx, line) {
+function setInitialPos(line) {
   let x = line.sticker? line.size : 30
 
   if (line.align === 'right') {
