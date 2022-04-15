@@ -29,6 +29,7 @@ function addTouchListeners() {
 function showGallery() {
   document.querySelector('.main-gallery').classList.remove('hide')
   document.querySelector('.main-editor').classList.add('hide')
+  gUserImg = null
 }
 
 function showEditor() {
