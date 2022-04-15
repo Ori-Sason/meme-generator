@@ -45,3 +45,32 @@ section.hide {
   font-family: fa;
   content: '\f56d';
 }
+
+/* IMAGE GALLERIES */
+
+.gallery{
+  height: 100%;
+  padding: 1em;
+  background-color: var(--bg-clr-500);
+  border-radius: 10px;
+}
+
+.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,120px);
+  justify-content: center;
+  gap: 10px;
+}
+
+.image-gallery img {
+  flex-basis: content;
+  border-radius: 10px;
+  max-width: 120px;
+  aspect-ratio: 1/1;
+  cursor: pointer;
+}
+
+.image-gallery img:hover {
+  border: 1px solid transparent;
+  box-shadow: 0 0 5px var(--bg-clr-100);
+}

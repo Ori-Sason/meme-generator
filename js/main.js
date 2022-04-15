@@ -3,9 +3,8 @@
 const STORAGE_KEY = 'memeDB'
 
 function onInit() {
-  const storagedMemes = getFromStorage(STORAGE_KEY)
-  if(storagedMemes) gStorageMemes = storagedMemes
-  
+  loadMemesFromStorage()
+  createNewMeme()
   renderGallery()
   addListeners()
 }
@@ -32,14 +31,30 @@ function addTouchListeners() {
 }
 
 function showGallery() {
+  hideAllMainSections()
   document.querySelector('.main-gallery').classList.remove('hide')
-  document.querySelector('.main-editor').classList.add('hide')
+  document.querySelector('.gallery-link').classList.add('active-page')
   gUserImg = null
 }
 
 function showEditor() {
-  document.querySelector('.main-gallery').classList.add('hide')
+  hideAllMainSections()
   document.querySelector('.main-editor').classList.remove('hide')
+}
+
+function showSavedMemes() {
+  renderMemesFromStorage()
+  hideAllMainSections()
+  document.querySelector('.storage-gallery').classList.remove('hide')
+  document.querySelector('.saved-memes-link').classList.add('active-page')
+}
+
+function hideAllMainSections() {
+  const sections = document.querySelectorAll('.body-container>main section')
+  sections.forEach(section => section.classList.add('hide'))
+  
+  const links = document.querySelectorAll('.header-links .nav-bar a')
+  links.forEach(link => link.classList.remove('active-page'))
 }
 
 function toggleMenu() {

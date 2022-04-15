@@ -88,12 +88,12 @@
   }
 
   /* GALLERY IMAGES */
-  .main-gallery .image-gallery {
+  .image-gallery {
     grid-template-columns: repeat(auto-fill, 210px);
     gap: 20px;
   }
 
-  .main-gallery .image-gallery img {
+  .image-gallery img {
     max-width: 210px;
   }
 

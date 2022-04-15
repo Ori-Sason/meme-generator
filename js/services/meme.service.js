@@ -130,20 +130,21 @@ const gStickers = [
   { id: 10, url: 'img/stickers/yay.png' },
 ]
 
-let gStorageMemes = []
+let gSavedMemes = []
 let gMeme = {}
 
 function createNewMeme() {
   gMeme = {
     id:
-      gStorageMemes.length === 0
+      gSavedMemes.length === 0
         ? 0
-        : gStorageMemes[gStorageMemes.length - 1].id + 1,
+        : gSavedMemes[gSavedMemes.length - 1].id + 1,
     
     selectedImgId: 1,
     selectedLineIdx: 0,
     fontFamily: 'impact',
     lines: [],
+    screenshot: null,
   }
 }
 
@@ -302,21 +303,42 @@ function _createMemeLine() {
   })
 }
 
+function getSavedMemes(){
+  return gSavedMemes
+}
+
+function loadMemesFromStorage(){
+  const storagedMemes = getFromStorage(STORAGE_KEY)
+  if(storagedMemes) gSavedMemes = storagedMemes
+  else gSavedMemes = []
+}
+
 function saveMeme() {
   const memeIdx = getMemeIdxInStorage(gMeme.id)
 
-  if (memeIdx === -1) gStorageMemes.push(gMeme)
-  else gStorageMemes[memeIdx] = gMeme
+  addLine()
+  renderMeme()
 
-  saveToStorage(STORAGE_KEY, gStorageMemes)
+  //the next set timeout is because 'image onload' takes time (we didn't learn promises yet)
+  setTimeout(() => {
+    const data = gElCanvas.toDataURL()
+    gMeme.screenshot = data
+
+    if (memeIdx === -1) gSavedMemes.push(gMeme)
+    else gSavedMemes[memeIdx] = gMeme
+  
+    saveToStorage(STORAGE_KEY, gSavedMemes)
+
+    deleteLine()
+    renderMeme()
+  }, 0)
 }
 
 function loadMeme(id){
   const memeIdx = getMemeIdxInStorage(id)
-  gMeme = gStorageMemes[memeIdx]
-  initGenerator() // FIX - THIS SHOULD BE REPLACES FROM THE MEMES CONTROLLER (HIDE + INIT)
+  gMeme = gSavedMemes[memeIdx]
 }
 
 function getMemeIdxInStorage(id) {
-  return gStorageMemes.findIndex((meme) => meme.id === id)
+  return gSavedMemes.findIndex((meme) => meme.id === id)
 }

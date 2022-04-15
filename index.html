@@ -16,8 +16,8 @@
 
         <nav class="header-links">
           <ul class="clean-list nav-bar">
-            <li><a href="#" class="active-page" onclick="showGallery()">Gallery</a></li>
-            <li><a href="#">Memes</a></li>
+            <li><a href="#" class="gallery-link active-page" onclick="showGallery()">Gallery</a></li>
+            <li><a href="#" class="saved-memes-link" onclick="showSavedMemes()">Memes</a></li>
             <!-- <li><a href="#">About</a></li> -->
           </ul>
         </nav>
@@ -26,7 +26,7 @@
       </header>
       
       <main class="main-layout">
-        <section class="main-gallery">
+        <section class="main-gallery gallery ">
           <header class="gallery-header">
             <input
               class="gallery-search text-input"
@@ -48,22 +48,7 @@
 
           <main>
             <ul class="image-gallery clean-list">
-              <li><img src="/img/gallery/1.jpg" alt="" /></li>
-              <li><img src="/img/gallery/2.jpg" alt="" /></li>
-              <li><img src="/img/gallery/1.jpg" alt="" /></li>
-              <li><img src="/img/gallery/2.jpg" alt="" /></li>
-              <li><img src="/img/gallery/1.jpg" alt="" /></li>
-              <li><img src="/img/gallery/2.jpg" alt="" /></li>
-              <li><img src="/img/gallery/1.jpg" alt="" /></li>
-              <li><img src="/img/gallery/2.jpg" alt="" /></li>
-              <li><img src="/img/gallery/1.jpg" alt="" /></li>
-              <li><img src="/img/gallery/2.jpg" alt="" /></li>
-              <li><img src="/img/gallery/1.jpg" alt="" /></li>
-              <li><img src="/img/gallery/2.jpg" alt="" /></li>
-              <li><img src="/img/gallery/1.jpg" alt="" /></li>
-              <li><img src="/img/gallery/2.jpg" alt="" /></li>
-              <li><img src="/img/gallery/1.jpg" alt="" /></li>
-              <li><img src="/img/gallery/2.jpg" alt="" /></li>
+              <!-- gallery images are rendered here -->
             </ul>
           </main>
         </section>
@@ -118,6 +103,16 @@
             </div>
           </div>
         </section>
+
+        <section class="storage-gallery gallery hide">
+          <main>
+            <ul class="image-gallery clean-list">
+              <img src="img/gallery/1.jpg" alt="">
+              <!-- gallery images are rendered here -->
+            </ul>
+          </main>
+        </section>
+
       </main>
 
       <footer class="main-footer main-layout">
@@ -130,6 +125,7 @@
     <script src="js/services/meme.service.js"></script>
     <script src="js/controllers/gallery.controller.js"></script>
     <script src="js/controllers/meme.controller.js"></script>
+    <script src="js/controllers/meme.storage.controller.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
