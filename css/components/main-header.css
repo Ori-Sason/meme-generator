@@ -22,6 +22,7 @@
 
 .main-header .logo {
   height: 1em;
+  cursor: pointer;
 }
 
 .main-header .header-links .nav-bar {
