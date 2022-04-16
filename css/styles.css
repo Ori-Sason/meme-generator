@@ -10,6 +10,7 @@
 /* Components */
 @import 'components/main-header.css';
 @import 'components/main-gallery.css';
+@import 'components/storage-gallery.css';
 @import 'components/buttons.css';
 @import 'components/main-editor.css';
 @import 'components/main-footer.css';

@@ -5,18 +5,28 @@ function renderMemesFromStorage() {
   const savedMemes = getSavedMemes()
 
   if (savedMemes.length === 0) {
-    //FIX - WRITE A MESSAGE
+    const strHtml = '<h2>Your memes storage is empty.</h2>'
+    document.querySelector('.storage-gallery').innerHTML = strHtml
     return
   }
 
-  const strHtml = savedMemes.map(
-    (meme) => `
-    <li><img src="${meme.screenshot}" onclick="onLoadMeme(${meme.id})" /></li>
-  `
+  let strHtml = '<ul class="image-gallery clean-list">'
+
+  savedMemes.forEach(
+    (meme) =>
+      (strHtml += `
+    <li>
+      <div class="icon-btn trash">
+        <img src="img/icons/trash.png" alt="Delete meme" title="Delete meme" onclick="onDeleteMeme(${meme.id})">
+      </div>
+      <img src="${meme.screenshot}" onclick="onLoadMeme(${meme.id})" />
+    </li>
+  `)
   )
 
-  document.querySelector('.storage-gallery .image-gallery').innerHTML =
-    strHtml.join('')
+  strHtml += '<ul>'
+
+  document.querySelector('.storage-gallery').innerHTML = strHtml
 }
 
 function onLoadMeme(id) {
@@ -30,4 +40,11 @@ function onLoadMeme(id) {
     resizeCanvas()
     renderMeme()
   }, 0)
+}
+
+function onDeleteMeme(id){
+  const savedMemes = getSavedMemes()
+  savedMemes.splice(id, 1)
+  saveMemesToStorage()
+  renderMemesFromStorage()
 }

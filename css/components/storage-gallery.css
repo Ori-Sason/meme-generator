@@ -1,0 +1,14 @@
+.storage-gallery {
+  color: var(--bg-clr-100);
+}
+
+.storage-gallery li {
+  position: relative;
+}
+
+.storage-gallery .icon-btn {
+  height: 20%;
+  position: absolute;
+  bottom: 7%;
+  right: 5%;
+}

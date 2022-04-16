@@ -48,7 +48,7 @@ section.hide {
 
 /* IMAGE GALLERIES */
 
-.gallery{
+.gallery {
   height: 100%;
   padding: 1em;
   background-color: var(--bg-clr-500);
@@ -57,8 +57,8 @@ section.hide {
 
 .image-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill,120px);
-  justify-content: center;
+  grid-template-columns: repeat(auto-fill, 120px);
+  justify-content: start;
   gap: 10px;
 }
 

@@ -327,11 +327,15 @@ function saveMeme() {
     if (memeIdx === -1) gSavedMemes.push(gMeme)
     else gSavedMemes[memeIdx] = gMeme
   
-    saveToStorage(STORAGE_KEY, gSavedMemes)
+    saveMemesToStorage()
 
     deleteLine()
     renderMeme()
   }, 0)
+}
+
+function saveMemesToStorage(){
+  saveToStorage(STORAGE_KEY, gSavedMemes)
 }
 
 function loadMeme(id){
