@@ -3,7 +3,10 @@
 const STORAGE_KEY = 'memeDB'
 
 function onInit() {
+  createKeywordSearchMap()
+  renderKeywords()
   renderKeywordsDataList()
+
   loadMemesFromStorage()
   createNewMeme()
   renderGallery()

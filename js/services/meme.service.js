@@ -3,6 +3,7 @@
 //KEYWORDS: animal, politician, baby, dog, cat, men, women, actors, movies, funny, comic, smile
 
 const gKeywordSearchCountMap = {}
+const MAX_KEYWORD_HEIGHT = 15
 const gFontFamilies = ['impact', 'poppins', 'fontdiner-swanky', 'lobster']
 
 const gImgs = [
@@ -147,8 +148,8 @@ function createNewMeme() {
 }
 
 function getImgs(keyword) {
-  if(!keyword) return gImgs
-  return gImgs.filter(img => img.keywords.includes(keyword.toLowerCase()))
+  if (!keyword) return gImgs
+  return gImgs.filter((img) => img.keywords.includes(keyword.toLowerCase()))
 }
 
 function getMeme() {
@@ -203,6 +204,8 @@ function deleteLine() {
   }
 }
 
+/* STYLE LINE */
+
 function setFontSize(step) {
   getCurrLine().size += +step
 }
@@ -244,6 +247,8 @@ function setFillClr(clr) {
   gMeme.lines[gMeme.selectedLineIdx].fillClr = clr
 }
 
+/* STICKERS */
+
 function setSticker(src) {
   const line = getCurrLine()
   line.sticker = src
@@ -257,6 +262,8 @@ function getStickerUrl(id) {
 function getStickers() {
   return gStickers
 }
+
+/* LINE POSITION */
 
 function isLineClicked(clickedPos) {
   function isStickerInArea(pos, width, height) {
@@ -305,20 +312,7 @@ function setLineInitPos(pos) {
   line.pos = pos
 }
 
-function _createMemeLine() {
-  gMeme.lines.push({
-    id: gMeme.lines.length,
-    txt: '',
-    size: 50,
-    align: 'left',
-    strokeClr: 'black',
-    fillClr: 'whitesmoke',
-    sticker: null,
-    pos: { x: 30, y: 60 },
-    isDrag: false,
-  })
-}
-
+/* SAVE IN STORAGE */
 function getSavedMemes() {
   return gSavedMemes
 }
@@ -367,4 +361,40 @@ function removeMemeFromStorage(id) {
 
 function getMemeIdxInStorage(id) {
   return gSavedMemes.findIndex((meme) => meme.id === id)
+}
+
+/* KEYWORDS */
+function createKeywordSearchMap() {
+  const keywords = new Set()
+  const imgs = getImgs()
+  imgs.forEach((img) => img.keywords.forEach((word) => keywords.add(word)))
+
+  Array.from(keywords).map((word) => (gKeywordSearchCountMap[word] = getRandomIntInclusive(1, MAX_KEYWORD_HEIGHT)))
+}
+
+function getKeywordSearchMap() {
+  return gKeywordSearchCountMap
+}
+
+function countKeyword(keyword) {
+  if (gKeywordSearchCountMap[keyword]) gKeywordSearchCountMap[keyword]++
+}
+
+function getMaxKeywordHeight(){
+  return MAX_KEYWORD_HEIGHT
+}
+
+/* PRIVATE FUNCTIONS */
+function _createMemeLine() {
+  gMeme.lines.push({
+    id: gMeme.lines.length,
+    txt: '',
+    size: 50,
+    align: 'left',
+    strokeClr: 'black',
+    fillClr: 'whitesmoke',
+    sticker: null,
+    pos: { x: 30, y: 60 },
+    isDrag: false,
+  })
 }

@@ -18,22 +18,56 @@ function renderGallery(keyword = null) {
   document.querySelector('.image-gallery').innerHTML = strHtml
 }
 
-function renderKeywordsDataList(){
-  const keywords = new Set()
-  const imgs = getImgs()
-  imgs.forEach(img => img.keywords.forEach(word => keywords.add(word)))
+/* SEARCH HEADER */
+
+function renderKeywordsDataList() {
+  const keywords = getKeywordSearchMap()
 
   // const keywords = getKeywords()
-  const strHtml = Array.from(keywords).sort().map(keyword => `
+  const strHtml = Object.keys(keywords)
+    .sort()
+    .map(
+      (keyword) => `
     <option value="${getCamelCase(keyword)}">
-  `)
+  `
+    )
 
-  document.getElementById('keywords-list').innerHTML = strHtml.join('')
+  document.getElementById('keywords-data-list').innerHTML = strHtml.join('')
 }
 
-function onSearch(keyword){
+function onSearch(keyword) {
+  countKeyword(keyword.toLowerCase())
+  renderKeywords()
   renderGallery(keyword)
 }
+
+function renderKeywords() {
+  const keywords = getKeywordSearchMap()
+  const strHtml = Object.keys(keywords).map(
+    (word) => `
+    <li onclick="onSearch(this.innerText)" style="font-size: ${getKeywordFontSizeInEm(
+      word
+    )}">${getCamelCase(word)}</li>
+  `
+  )
+
+  document.querySelector('.keywords-list').innerHTML = strHtml.join('')
+}
+
+function getKeywordFontSizeInEm(keyword) {
+  const keywords = getKeywordSearchMap()
+  const count = keywords[keyword]
+  return Math.min(getMaxKeywordHeight(), count) / 10 + 1 + 'em'
+}
+
+function onMoreKeywords(elBtn) {
+  document.querySelector('.gallery-header').classList.toggle('keywords-open')
+
+  if (elBtn.innerText === 'More') elBtn.innerText = 'Close'
+  else elBtn.innerText = 'More'
+}
+
+/* IMG GALLERY */
 
 function onImgSelect(id, userImg = null) {
   createNewMeme()
@@ -60,7 +94,7 @@ function loadImageFromInput(ev, onImageReady) {
   reader.readAsDataURL(ev.target.files[0])
 }
 
-function renderImg(img) { 
+function renderImg(img) {
   //we set img 1, but it will be ignored
   onImgSelect(1, img.src)
 }

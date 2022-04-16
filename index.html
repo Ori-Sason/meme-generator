@@ -32,23 +32,20 @@
           <header class="gallery-header">
             <input
               class="gallery-search text-input"
-              list="keywords-list"
+              list="keywords-data-list"
               placeholder="Enter keyword for search"
               oninput="onSearch(this.value)"
             />
 
-            <datalist id="keywords-list">
+            <datalist id="keywords-data-list">
               <!-- options are rendered here -->
             </datalist>
 
             <ul class="keywords-list clean-list">
-              <li>funny</li>
-              <li>animal</li>
-              <li>man</li>
-              <li>woman</li>
+              <!-- keywords are rendered here -->              
             </ul>
 
-            <button class="keywords-more-btn">More</button>
+            <button class="keywords-more-btn" onclick="onMoreKeywords(this)">More</button>
           </header>
 
           <main>
