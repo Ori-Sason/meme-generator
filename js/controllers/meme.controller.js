@@ -322,8 +322,8 @@ function resizeCanvas() {
   const meme = getMeme()
   const img = new Image()
   img.src = meme.userImg ? meme.userImg : getImg(meme.selectedImgId).url
-  gElCanvas.width = elContainer.offsetWidth
-  gElCanvas.height = (img.height * elContainer.offsetHeight) / img.width
+  gElCanvas.width = Math.min(elContainer.offsetWidth, img.width)
+  gElCanvas.height = (img.height * gElCanvas.width) / img.width
 
   meme.lines.forEach((line) => {
     line.pos.x *= gElCanvas.width / meme.oldCanvasSize.width
