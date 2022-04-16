@@ -73,6 +73,12 @@
     height: 2em;
   }
 
+  /* GALLERY */
+  .main-gallery .gallery-header.keywords-open .keywords-list {
+    min-width: unset;
+    height: 15em;
+  }
+
   /* EDITOR */
 
   .editor-config .font-style {

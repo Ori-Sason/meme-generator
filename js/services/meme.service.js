@@ -3,7 +3,7 @@
 //KEYWORDS: animal, politician, baby, dog, cat, men, women, actors, movies, funny, comic, smile
 
 const gKeywordSearchCountMap = {}
-const MAX_KEYWORD_HEIGHT = 15
+const MAX_KEYWORD_HEIGHT = 10
 const gFontFamilies = ['impact', 'poppins', 'fontdiner-swanky', 'lobster']
 
 const gImgs = [

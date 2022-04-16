@@ -61,7 +61,8 @@
 }
 
 .main-gallery .gallery-header.keywords-open .keywords-list {
-  height: 13em;
+  min-width: 100%;
+  height: 14em;
   border-radius: 2em;
 }
 
