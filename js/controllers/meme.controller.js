@@ -128,7 +128,7 @@ function onChangeFontSize(diff) {
 }
 
 function onChangeAlignment(alignment) {
-  setAlign(alignment)
+  setAlign(alignment, gElCanvas.width)
   renderMeme()
 }
 
@@ -305,18 +305,6 @@ function onLoadMeme(id) {
 /* will need to fix the sizes (not always 60)*/
 function setInitialPos(line) {
   let x = line.sticker ? line.size : 30
-
-  if (line.align === 'right') {
-    x =
-      gElCanvas.width -
-      30 -
-      (line.sticker ? line.size : gCtx.measureText(line.txt).width)
-  } else if (line.align === 'center') {
-    x =
-      (gElCanvas.width -
-        (line.sticker ? line.size : gCtx.measureText(line.txt).width)) /
-      2
-  }
 
   let y = 60 * line.id
   if (line.id === 0) y = line.sticker ? line.size : 60

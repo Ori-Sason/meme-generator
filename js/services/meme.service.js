@@ -204,9 +204,25 @@ function setFontSize(step) {
   getCurrLine().size += +step
 }
 
-function setAlign(alignment) {
+function setAlign(alignment, canvasWidth) {
   const line = getCurrLine()
   line.align = alignment
+
+  let x = line.sticker ? line.size : 30
+
+  if (line.align === 'right') {
+    x =
+      canvasWidth -
+      30 -
+      (line.sticker ? line.size : gCtx.measureText(line.txt).width)
+  } else if (line.align === 'center') {
+    x =
+      (canvasWidth -
+        (line.sticker ? line.size : gCtx.measureText(line.txt).width)) /
+      2
+  }
+
+  line.pos.x = x
 }
 
 function getFontFamilies() {

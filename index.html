@@ -62,17 +62,17 @@
             <input type="text" class="text-input" oninput="onChangeText(this.value)" />
 
             <div class="text-selection">
-              <div class="icon-btn switch"><img src="img/icons/switch.png" alt="Switch line" title="Switch Line" onclick="onSwitchLine()"></div>
-              <div class="icon-btn add"><img src="img/icons/add.png" alt="Add line" title="Add line" onclick="onAddLine()"></div>
-              <div class="icon-btn trash"><img src="img/icons/trash.png" alt="Delete line" title="Delete line" onclick="onDeleteLine()"></div>
+              <div class="icon-btn switch" onclick="onSwitchLine()"><img src="img/icons/switch.png" alt="Switch line" title="Switch Line"></div>
+              <div class="icon-btn add" onclick="onAddLine()"><img src="img/icons/add.png" alt="Add line" title="Add line"></div>
+              <div class="icon-btn trash" onclick="onDeleteLine()"><img src="img/icons/trash.png" alt="Delete line" title="Delete line"></div>
             </div>
 
             <div class="font-style">
-              <div class="icon-btn"><img src="img/icons/increase font - icon.png" alt="Increase font" title="Increase font" onclick="onChangeFontSize('2')"></div>
-              <div class="icon-btn"><img src="img/icons/decrease font - icon.png" alt="Decrease font" title="Decrease font" onclick="onChangeFontSize('-2')"></div>
-              <div class="icon-btn"><img src="img/icons/align-to-left.png" alt="Align left" title="Align left" onclick="onChangeAlignment('left')"></div>
-              <div class="icon-btn"><img src="img/icons/center-text-alignment.png" alt="Align center" title="Align center" onclick="onChangeAlignment('center')"></div>
-              <div class="icon-btn"><img src="img/icons/align-to-right.png" alt="Align right" title="Align right" onclick="onChangeAlignment('right')"></div>
+              <div class="icon-btn" onclick="onChangeFontSize('2')"><img src="img/icons/increase font - icon.png" alt="Increase font" title="Increase font"></div>
+              <div class="icon-btn" onclick="onChangeFontSize('-2')"><img src="img/icons/decrease font - icon.png" alt="Decrease font" title="Decrease font"></div>
+              <div class="icon-btn" onclick="onChangeAlignment('left')"><img src="img/icons/align-to-left.png" alt="Align left" title="Align left"></div>
+              <div class="icon-btn" onclick="onChangeAlignment('center')"><img src="img/icons/center-text-alignment.png" alt="Align center" title="Align center"></div>
+              <div class="icon-btn" onclick="onChangeAlignment('right')"><img src="img/icons/align-to-right.png" alt="Align right" title="Align right"></div>
               
               <select class="font-family-input text-input" onchange="onFontFamilyChange(this.value)">
                   <!-- font families are rendered here -->
