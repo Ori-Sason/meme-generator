@@ -31,14 +31,14 @@ function renderMemesFromStorage() {
 
 function onLoadMeme(id) {
   loadMeme(id)
-  initGenerator()
+  initGenerator(true)
   showEditor()
-
-  //rerender since the images load time might take a while
+  
+  //rerender since the images load time might take a while - couldn't find a solution
   setTimeout(() => {
     resizeCanvas()
     renderMeme()
-  }, 0)
+  }, 10)
 }
 
 function onRemoveMeme(id){

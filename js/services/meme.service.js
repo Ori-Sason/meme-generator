@@ -144,6 +144,7 @@ function createNewMeme() {
     fontFamily: 'impact',
     lines: [],
     screenshot: null,
+    oldCanvasSize: {width: 504, height: 572},
   }
 }
 

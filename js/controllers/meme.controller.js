@@ -1,7 +1,4 @@
 'use strict'
-let oldWidth
-let oldHeight
-
 const gElCanvas = document.getElementById('canvas')
 const gCtx = gElCanvas.getContext('2d')
 let gCurrFontFamily = 'impact'
@@ -11,14 +8,12 @@ let gIsDownloadable = false
 let gStartPos
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 
-function initGenerator() {
+function initGenerator(isLoad = false) {
   _clearEditorTxtInput()
   renderFontFamilies()
   renderStickers()
-  oldWidth = gElCanvas.width
-  oldHeight = gElCanvas.height
   
-  resizeCanvas()
+  if(!isLoad) resizeCanvas()
   addLine()
   renderMeme()
 }
@@ -50,8 +45,8 @@ function renderMeme() {
 function drawText(line) {
   if (line.txt.trim() === '') return
   const meme = getMeme()
-  gCtx.font = `${canvasRatio(line)}px ${meme.fontFamily}`
-  gCtx.lineWidth = (canvasRatio(line)) / 25
+  gCtx.font = `${line.size}px ${meme.fontFamily}`
+  gCtx.lineWidth = (line.size) / 25
   gCtx.strokeStyle = line.strokeClr
   gCtx.fillStyle = line.fillClr
 
@@ -72,11 +67,11 @@ function drawRect(line) {
   gCtx.strokeStyle = '#30a9c8'
 
   const width = line.sticker
-    ? (canvasRatio(line) + 20)
+    ? (line.size + 20)
     : gCtx.measureText(line.txt).width + 20
 
   const height = line.sticker
-    ? canvasRatio(line) + 20
+    ? line.size + 20
     : parseInt(gCtx.font) * 1.3
 
   gCtx.rect(
@@ -193,10 +188,10 @@ function drawSticker(line) {
   if (img.complete) {
     gCtx.drawImage(
       img,
-      pos.x - (canvasRatio(line)) / 2,
-      pos.y - (canvasRatio(line)) / 2,
-      canvasRatio(line),
-      canvasRatio(line)
+      pos.x - (line.size) / 2,
+      pos.y - (line.size) / 2,
+      line.size,
+      line.size
     )
   }
 }
@@ -337,12 +332,13 @@ function resizeCanvas() {
   gElCanvas.height = (img.height * elContainer.offsetHeight) / img.width
 
   meme.lines.forEach((line) => {
-    line.pos.x *= gElCanvas.width / oldWidth
-    line.pos.y *= gElCanvas.height / oldHeight
+    line.pos.x *= gElCanvas.width / meme.oldCanvasSize.width
+    line.pos.y *= gElCanvas.height / meme.oldCanvasSize.height
+    line.size *= gElCanvas.height / meme.oldCanvasSize.height
   })
 
-  oldWidth = gElCanvas.width
-  oldHeight = gElCanvas.height
+  meme.oldCanvasSize.width = gElCanvas.width
+  meme.oldCanvasSize.height = gElCanvas.height
 }
 
 /* DRAG AND DROP */
@@ -388,8 +384,4 @@ function getEvPos(ev) {
 
 function _clearEditorTxtInput() {
   document.querySelector('.editor-config .text-input').value = ''
-}
-
-function canvasRatio(line) {
-  return line.size * gElCanvas.width / oldWidth
 }
