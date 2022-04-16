@@ -10,6 +10,8 @@
     <title>Meme Generator</title>
   </head>
   <body onload="onInit()">
+    <div class="backlog"></div>
+    
     <div class="body-container">
       <header class="main-header main-layout">
         <img class="logo" src="img/logo/LOGO.png" alt="meme generator logo" />
@@ -30,17 +32,20 @@
           <header class="gallery-header">
             <input
               class="gallery-search text-input"
-              type="text"
+              list="keywords-list"
               placeholder="Enter keyword for search"
+              oninput="onSearch(this.value)"
             />
+
+            <datalist id="keywords-list">
+              <!-- options are rendered here -->
+            </datalist>
 
             <ul class="keywords-list clean-list">
               <li>funny</li>
               <li>animal</li>
               <li>man</li>
               <li>woman</li>
-              <li>comic</li>
-              <li>smile</li>
             </ul>
 
             <button class="keywords-more-btn">More</button>

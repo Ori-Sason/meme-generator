@@ -15,7 +15,7 @@ const gImgs = [
   {
     id: 2,
     url: 'img/gallery/2.jpg',
-    keywords: ['animal', 'dog', 'smile'],
+    keywords: ['animal', 'dog'],
     alt: 'puppies',
   },
   {
@@ -105,13 +105,13 @@ const gImgs = [
   {
     id: 17,
     url: 'img/gallery/17.jpg',
-    keywords: ['actors', 'movies', 'men'],
+    keywords: ['politician', 'men'],
     alt: 'vladimir Putin',
   },
   {
     id: 18,
     url: 'img/gallery/18.jpg',
-    keywords: ['actors', 'movies', 'men'],
+    keywords: ['movies', 'men'],
     alt: 'Toy Story',
   },
 ]
@@ -146,8 +146,9 @@ function createNewMeme() {
   }
 }
 
-function getImgs() {
-  return gImgs
+function getImgs(keyword) {
+  if(!keyword) return gImgs
+  return gImgs.filter(img => img.keywords.includes(keyword.toLowerCase()))
 }
 
 function getMeme() {

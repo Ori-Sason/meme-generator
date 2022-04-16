@@ -1,13 +1,12 @@
-/* MOBILE ONLY*/
+/* MEDIUM SCREENS ONLY - HAMBURGER */
 @media screen and (max-width: 930px) {
   .main-header .header-links .nav-bar {
     display: flex;
-
     position: fixed;
     width: 100%;
     height: 100%;
+    top: 130px; /* FIX */
     right: -100%;
-    top: 150px; /* FIX */
     transition: right 0.5s;
     background-color: var(--bg-clr-800);
     padding: 2em 0;
@@ -15,7 +14,28 @@
     justify-content: flex-start;
     align-items: center;
     gap: 1em;
+    z-index: 2;
+  }
+
+  .backlog {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    right: -100%;
+    transition: right 0.5s;
+    background-color: var(--bg-clr-800);
     z-index: 1;
+  }
+
+  body.menu-open .backlog {
+    right: 0;
+  }
+
+  body.menu-open .body-container {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
   }
 
   body.menu-open .main-header .nav-bar {
@@ -27,6 +47,14 @@
     align-items: center;
   }
 }
+
+@media screen and (max-width: 470px) {
+  .main-header .header-links .nav-bar {
+    top: 100px; /* FIX */
+  }
+}
+
+/* END OF HAMBURGER SECTION*/
 
 /* MEDIUM */
 @media screen and (min-width: 470px) {

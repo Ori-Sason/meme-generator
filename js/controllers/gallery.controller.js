@@ -1,7 +1,7 @@
 'use strict'
 
-function renderGallery() {
-  const imgs = getImgs()
+function renderGallery(keyword = null) {
+  const imgs = getImgs(keyword)
   let strHtml = ''
   imgs.forEach(
     (img) =>
@@ -18,9 +18,26 @@ function renderGallery() {
   document.querySelector('.image-gallery').innerHTML = strHtml
 }
 
+function renderKeywordsDataList(){
+  const keywords = new Set()
+  const imgs = getImgs()
+  imgs.forEach(img => img.keywords.forEach(word => keywords.add(word)))
+
+  // const keywords = getKeywords()
+  const strHtml = Array.from(keywords).sort().map(keyword => `
+    <option value="${getCamelCase(keyword)}">
+  `)
+
+  document.getElementById('keywords-list').innerHTML = strHtml.join('')
+}
+
+function onSearch(keyword){
+  renderGallery(keyword)
+}
+
 function onImgSelect(id, userImg = null) {
   createNewMeme()
-  setImg(id, userImg.src)
+  setImg(id, userImg)
   showEditor()
 
   initGenerator()
@@ -45,5 +62,5 @@ function loadImageFromInput(ev, onImageReady) {
 
 function renderImg(img) { 
   //we set img 1, but it will be ignored
-  onImgSelect(1, img)
+  onImgSelect(1, img.src)
 }

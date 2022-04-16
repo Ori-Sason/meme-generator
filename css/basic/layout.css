@@ -1,12 +1,12 @@
 .main-layout {
   width: 90%;
-  /* max-width: 1260px; */
   max-width: 400px;
   margin: 0 auto;
 }
 
 .body-container {
   height: 100%;
+  width: 100%;
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: auto 1fr auto;

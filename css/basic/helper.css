@@ -58,7 +58,8 @@ section.hide {
 .image-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, 120px);
-  justify-content: start;
+  justify-content: center;
+  justify-items: start;
   gap: 10px;
 }
 

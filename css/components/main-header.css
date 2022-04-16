@@ -1,3 +1,7 @@
+.backlog{
+  top: 0
+}
+
 .main-header {
   margin: 1em auto;
   padding: 1em 2em;
@@ -17,7 +21,7 @@
 }
 
 .main-header .logo {
-  height: 1em; /* FIX */
+  height: 1em;
 }
 
 .main-header .header-links .nav-bar {
@@ -34,7 +38,7 @@
   background-color: var(--bg-clr-100);
 }
 
-.main-header .btn-toggle-menu{
+.main-header .btn-toggle-menu {
   border-radius: 50%;
   height: 2em;
   aspect-ratio: 1/1;

@@ -3,6 +3,7 @@
 const STORAGE_KEY = 'memeDB'
 
 function onInit() {
+  renderKeywordsDataList()
   loadMemesFromStorage()
   createNewMeme()
   renderGallery()
@@ -34,7 +35,7 @@ function showGallery() {
   hideAllMainSections()
   document.querySelector('.main-gallery').classList.remove('hide')
   document.querySelector('.gallery-link').classList.add('active-page')
-  gUserImg = null
+  hideMenu()  
 }
 
 function showEditor() {
@@ -47,6 +48,7 @@ function showSavedMemes() {
   hideAllMainSections()
   document.querySelector('.storage-gallery').classList.remove('hide')
   document.querySelector('.saved-memes-link').classList.add('active-page')
+  hideMenu()
 }
 
 function hideAllMainSections() {
@@ -59,4 +61,8 @@ function hideAllMainSections() {
 
 function toggleMenu() {
   document.body.classList.toggle('menu-open')
+}
+
+function hideMenu(){
+  document.body.classList.remove('menu-open')
 }
