@@ -59,19 +59,20 @@ section.hide {
   display: grid;
   grid-template-columns: repeat(auto-fill, 120px);
   justify-content: center;
-  justify-items: start;
+  align-items: center;
   gap: 10px;
 }
 
 .image-gallery img {
   flex-basis: content;
-  border-radius: 10px;
   max-width: 120px;
-  aspect-ratio: 1/1;
+  border-radius: 10px;
+  object-fit: cover;
+  object-position: center;
   cursor: pointer;
 }
 
 .image-gallery img:hover {
-  border: 1px solid transparent;
+  border: inset 1px solid transparent;
   box-shadow: 0 0 5px var(--bg-clr-100);
 }
