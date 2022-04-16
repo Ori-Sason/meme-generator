@@ -34,7 +34,7 @@ function onLoadMeme(id) {
   initGenerator()
   showEditor()
 
-  //bug fix - FIX
+  //rerender since the images load time might take a while
   setTimeout(() => {
     resizeCanvas()
     renderMeme()

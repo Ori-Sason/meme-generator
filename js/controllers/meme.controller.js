@@ -301,20 +301,18 @@ function onLoadMeme(id) {
 }
 
 /* HELPERS */
-/* will need to fix the sizes (not always 60)*/
 function setInitialPos(line) {
   let x = line.sticker ? line.size : 30
 
   let y = 60 * line.id
   if (line.id === 0) y = line.sticker ? line.size : 60
-  else if (line.id === 1) y = gElCanvas.height - (line.sticker ? line.size : 20)
+  else if (line.id === 1) y = gElCanvas.height - (line.sticker ? line.size * 1.5 : 20)
 
   const pos = { x, y }
   setLineInitPos(pos)
   return pos
 }
 
-/* FIX RESIZING */
 function resizeCanvas() {
   gElCanvas.width = 0
   gElCanvas.height = 0
@@ -368,11 +366,4 @@ function getEvPos(ev) {
 
 function _clearEditorTxtInput() {
   document.querySelector('.editor-config .text-input').value = ''
-}
-
-//* FIX - DELETE THIS FUNCTION */
-function drawArc() {
-  gCtx.beginPath()
-  gCtx.arc(getCurrLine().pos.x, getCurrLine().pos.y, 20, 0, 2 * Math.PI)
-  gCtx.fill()
 }
