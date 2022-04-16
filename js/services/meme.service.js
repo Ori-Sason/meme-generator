@@ -115,6 +115,48 @@ const gImgs = [
     keywords: ['movies', 'men'],
     alt: 'Toy Story',
   },
+  {
+    id: 19,
+    url: 'img/gallery/19.jpg',
+    keywords: ['movies', 'men'],
+    alt: '',
+  },
+  {
+    id: 20,
+    url: 'img/gallery/20.jpg',
+    keywords: ['movies', 'women'],
+    alt: 'Toy Story',
+  },
+  {
+    id: 21,
+    url: 'img/gallery/21.jpg',
+    keywords: ['movies', 'men', 'funny'],
+    alt: 'Dr evil',
+  },
+  {
+    id: 22,
+    url: 'img/gallery/22.jpg',
+    keywords: ['movies', 'men', 'smile', 'funny'],
+    alt: 'Dancing kids',
+  },
+  {
+    id: 23,
+    url: 'img/gallery/23.jpg',
+    keywords: ['politician', 'men'],
+    alt: 'Donald Tramp',
+  },
+  {
+    id: 24,
+    url: 'img/gallery/24.jpg',
+    keywords: ['dog', 'funny'],
+    alt: 'lying dog',
+  },
+  {
+    id: 25,
+    url: 'img/gallery/25.jpg',
+    keywords: ['women'],
+    alt: 'Opera Winfrey',
+  },
 ]
 
 const gStickers = [

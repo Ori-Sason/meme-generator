@@ -12,8 +12,8 @@ function initGenerator(isLoad = false) {
   _clearEditorTxtInput()
   renderFontFamilies()
   renderStickers()
-  
-  if(!isLoad) resizeCanvas()
+
+  if (!isLoad) resizeCanvas()
   addLine()
   renderMeme()
 }
@@ -46,7 +46,7 @@ function drawText(line) {
   if (line.txt.trim() === '') return
   const meme = getMeme()
   gCtx.font = `${line.size}px ${meme.fontFamily}`
-  gCtx.lineWidth = (line.size) / 25
+  gCtx.lineWidth = line.size / 25
   gCtx.strokeStyle = line.strokeClr
   gCtx.fillStyle = line.fillClr
 
@@ -67,12 +67,10 @@ function drawRect(line) {
   gCtx.strokeStyle = '#30a9c8'
 
   const width = line.sticker
-    ? (line.size + 20)
+    ? line.size + 20
     : gCtx.measureText(line.txt).width + 20
 
-  const height = line.sticker
-    ? line.size + 20
-    : parseInt(gCtx.font) * 1.3
+  const height = line.sticker ? line.size + 20 : parseInt(gCtx.font) * 1.3
 
   gCtx.rect(
     line.pos.x - 10 - (line.sticker ? line.size / 2 : 0),
@@ -188,8 +186,8 @@ function drawSticker(line) {
   if (img.complete) {
     gCtx.drawImage(
       img,
-      pos.x - (line.size) / 2,
-      pos.y - (line.size) / 2,
+      pos.x - line.size / 2,
+      pos.y - line.size / 2,
       line.size,
       line.size
     )
@@ -321,10 +319,6 @@ function resizeCanvas() {
   gElCanvas.height = 0
 
   const elContainer = document.querySelector('.canvas-container')
-  // gElCanvas.width = elContainer.offsetWidth - 50
-  // // Unless needed, better keep height fixed.  /* FIX */
-  // gElCanvas.height = elContainer.offsetHeight - 50
-
   const meme = getMeme()
   const img = new Image()
   img.src = meme.userImg ? meme.userImg : getImg(meme.selectedImgId).url
