@@ -1,4 +1,6 @@
 'use strict'
+let oldWidth
+let oldHeight
 
 const gElCanvas = document.getElementById('canvas')
 const gCtx = gElCanvas.getContext('2d')
@@ -13,6 +15,9 @@ function initGenerator() {
   _clearEditorTxtInput()
   renderFontFamilies()
   renderStickers()
+  oldWidth = gElCanvas.width
+  oldHeight = gElCanvas.height
+  
   resizeCanvas()
   addLine()
   renderMeme()
@@ -45,8 +50,8 @@ function renderMeme() {
 function drawText(line) {
   if (line.txt.trim() === '') return
   const meme = getMeme()
-  gCtx.font = `${line.size}px ${meme.fontFamily}`
-  gCtx.lineWidth = line.size / 25
+  gCtx.font = `${canvasRatio(line)}px ${meme.fontFamily}`
+  gCtx.lineWidth = (canvasRatio(line)) / 25
   gCtx.strokeStyle = line.strokeClr
   gCtx.fillStyle = line.fillClr
 
@@ -67,10 +72,12 @@ function drawRect(line) {
   gCtx.strokeStyle = '#30a9c8'
 
   const width = line.sticker
-    ? line.size + 20
+    ? (canvasRatio(line) + 20)
     : gCtx.measureText(line.txt).width + 20
 
-  const height = line.sticker ? line.size + 20 : parseInt(gCtx.font) * 1.3
+  const height = line.sticker
+    ? canvasRatio(line) + 20
+    : parseInt(gCtx.font) * 1.3
 
   gCtx.rect(
     line.pos.x - 10 - (line.sticker ? line.size / 2 : 0),
@@ -186,10 +193,10 @@ function drawSticker(line) {
   if (img.complete) {
     gCtx.drawImage(
       img,
-      pos.x - line.size / 2,
-      pos.y - line.size / 2,
-      line.size,
-      line.size
+      pos.x - (canvasRatio(line)) / 2,
+      pos.y - (canvasRatio(line)) / 2,
+      canvasRatio(line),
+      canvasRatio(line)
     )
   }
 }
@@ -304,9 +311,10 @@ function onLoadMeme(id) {
 function setInitialPos(line) {
   let x = line.sticker ? line.size : 30
 
-  let y = gElCanvas.height / 2 
+  let y = gElCanvas.height / 2
   if (line.id === 0) y = line.sticker ? line.size : 60
-  else if (line.id === 1) y = gElCanvas.height - (line.sticker ? line.size * 1.5 : 20)
+  else if (line.id === 1)
+    y = gElCanvas.height - (line.sticker ? line.size * 1.5 : 20)
 
   const pos = { x, y }
   setLineInitPos(pos)
@@ -318,9 +326,23 @@ function resizeCanvas() {
   gElCanvas.height = 0
 
   const elContainer = document.querySelector('.canvas-container')
-  gElCanvas.width = elContainer.offsetWidth - 50
-  // Unless needed, better keep height fixed.  /* FIX */
-  gElCanvas.height = elContainer.offsetHeight - 50
+  // gElCanvas.width = elContainer.offsetWidth - 50
+  // // Unless needed, better keep height fixed.  /* FIX */
+  // gElCanvas.height = elContainer.offsetHeight - 50
+
+  const meme = getMeme()
+  const img = new Image()
+  img.src = meme.userImg ? meme.userImg : getImg(meme.selectedImgId).url
+  gElCanvas.width = elContainer.offsetWidth
+  gElCanvas.height = (img.height * elContainer.offsetHeight) / img.width
+
+  meme.lines.forEach((line) => {
+    line.pos.x *= gElCanvas.width / oldWidth
+    line.pos.y *= gElCanvas.height / oldHeight
+  })
+
+  oldWidth = gElCanvas.width
+  oldHeight = gElCanvas.height
 }
 
 /* DRAG AND DROP */
@@ -366,4 +388,8 @@ function getEvPos(ev) {
 
 function _clearEditorTxtInput() {
   document.querySelector('.editor-config .text-input').value = ''
+}
+
+function canvasRatio(line) {
+  return line.size * gElCanvas.width / oldWidth
 }
