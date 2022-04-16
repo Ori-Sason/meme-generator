@@ -17,7 +17,7 @@ function renderMemesFromStorage() {
       (strHtml += `
     <li>
       <div class="icon-btn trash">
-        <img src="img/icons/trash.png" alt="Delete meme" title="Delete meme" onclick="onDeleteMeme(${meme.id})">
+        <img src="img/icons/trash.png" alt="Remove meme" title="Remove meme" onclick="onRemoveMeme(${meme.id})">
       </div>
       <img src="${meme.screenshot}" onclick="onLoadMeme(${meme.id})" />
     </li>
@@ -31,7 +31,6 @@ function renderMemesFromStorage() {
 
 function onLoadMeme(id) {
   loadMeme(id)
-  console.log('got here')
   initGenerator()
   showEditor()
 

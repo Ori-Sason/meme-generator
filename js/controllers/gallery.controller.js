@@ -18,9 +18,9 @@ function renderGallery() {
   document.querySelector('.image-gallery').innerHTML = strHtml
 }
 
-function onImgSelect(id) {
+function onImgSelect(id, userImg = null) {
   createNewMeme()
-  setImg(id)
+  setImg(id, userImg.src)
   showEditor()
 
   initGenerator()
@@ -43,7 +43,7 @@ function loadImageFromInput(ev, onImageReady) {
   reader.readAsDataURL(ev.target.files[0])
 }
 
-function renderImg(img) {
-  gUserImg = img
-  onImgSelect(1)
+function renderImg(img) { 
+  //we set img 1, but it will be ignored
+  onImgSelect(1, img)
 }

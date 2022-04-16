@@ -138,6 +138,7 @@ function createNewMeme() {
       gSavedMemes.length === 0 ? 0 : gSavedMemes[gSavedMemes.length - 1].id + 1,
 
     selectedImgId: 1,
+    userImg: null,
     selectedLineIdx: 0,
     fontFamily: 'impact',
     lines: [],
@@ -166,8 +167,9 @@ function getImg(id) {
   return gImgs.find((img) => img.id === id)
 }
 
-function setImg(id) {
+function setImg(id, userImg) {
   gMeme.selectedImgId = id
+  gMeme.userImg = userImg
 }
 
 function setLineTxt(text) {
@@ -358,7 +360,7 @@ function loadMeme(id) {
 
 function removeMemeFromStorage(id) {
   const memeIdx = getMemeIdxInStorage(id)
-  savedMemes.splice(memeIdx, 1)
+  gSavedMemes.splice(memeIdx, 1)
   saveMemesToStorage()
 }
 

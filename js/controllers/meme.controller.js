@@ -5,7 +5,6 @@ const gCtx = gElCanvas.getContext('2d')
 let gCurrFontFamily = 'impact'
 let gCurrSticker = 0
 let gIsDownloadable = false
-let gUserImg = null
 
 let gStartPos
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
@@ -25,7 +24,7 @@ function renderMeme() {
   let img = new Image()
   img.src = getImg(meme.selectedImgId).url
 
-  if (gUserImg) img.src = gUserImg.src
+  if (meme.userImg) img.src = meme.userImg
 
   img.onload = () => {
     // if(img.complete){
