@@ -304,7 +304,7 @@ function onLoadMeme(id) {
 function setInitialPos(line) {
   let x = line.sticker ? line.size : 30
 
-  let y = 60 * line.id
+  let y = gElCanvas.height / 2 
   if (line.id === 0) y = line.sticker ? line.size : 60
   else if (line.id === 1) y = gElCanvas.height - (line.sticker ? line.size * 1.5 : 20)
 
