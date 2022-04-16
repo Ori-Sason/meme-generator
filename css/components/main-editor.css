@@ -133,3 +133,11 @@
   background-color: #8f44bb;
   box-shadow: inset 0 4px #bf84da, inset 0 -4px #632687;
 }
+
+.editor-config .save-meme a.hide-fa{
+  padding-left: 0.5em;
+}
+
+.editor-config .save-meme a.hide-fa::before{
+  content: ' ';
+}

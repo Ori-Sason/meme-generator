@@ -42,9 +42,8 @@ function onLoadMeme(id) {
   }, 0)
 }
 
-function onDeleteMeme(id){
+function onRemoveMeme(id){
   const savedMemes = getSavedMemes()
-  savedMemes.splice(id, 1)
-  saveMemesToStorage()
+  removeMemeFromStorage(id)
   renderMemesFromStorage()
 }

@@ -2,7 +2,6 @@
 
 //KEYWORDS: animal, politician, baby, dog, cat, men, women, actors, movies, funny, comic, smile
 
-
 const gKeywordSearchCountMap = {}
 const gFontFamilies = ['impact', 'poppins', 'fontdiner-swanky', 'lobster']
 
@@ -136,10 +135,8 @@ let gMeme = {}
 function createNewMeme() {
   gMeme = {
     id:
-      gSavedMemes.length === 0
-        ? 0
-        : gSavedMemes[gSavedMemes.length - 1].id + 1,
-    
+      gSavedMemes.length === 0 ? 0 : gSavedMemes[gSavedMemes.length - 1].id + 1,
+
     selectedImgId: 1,
     selectedLineIdx: 0,
     fontFamily: 'impact',
@@ -216,7 +213,7 @@ function getFontFamilies() {
   return gFontFamilies.sort()
 }
 
-function setFontFamily(fontName){
+function setFontFamily(fontName) {
   gMeme.fontFamily = fontName
 }
 
@@ -303,13 +300,13 @@ function _createMemeLine() {
   })
 }
 
-function getSavedMemes(){
+function getSavedMemes() {
   return gSavedMemes
 }
 
-function loadMemesFromStorage(){
+function loadMemesFromStorage() {
   const storagedMemes = getFromStorage(STORAGE_KEY)
-  if(storagedMemes) gSavedMemes = storagedMemes
+  if (storagedMemes) gSavedMemes = storagedMemes
   else gSavedMemes = []
 }
 
@@ -326,7 +323,7 @@ function saveMeme() {
 
     if (memeIdx === -1) gSavedMemes.push(gMeme)
     else gSavedMemes[memeIdx] = gMeme
-  
+
     saveMemesToStorage()
 
     deleteLine()
@@ -334,13 +331,19 @@ function saveMeme() {
   }, 0)
 }
 
-function saveMemesToStorage(){
+function saveMemesToStorage() {
   saveToStorage(STORAGE_KEY, gSavedMemes)
 }
 
-function loadMeme(id){
+function loadMeme(id) {
   const memeIdx = getMemeIdxInStorage(id)
   gMeme = gSavedMemes[memeIdx]
+}
+
+function removeMemeFromStorage(id) {
+  const memeIdx = getMemeIdxInStorage(id)
+  savedMemes.splice(memeIdx, 1)
+  saveMemesToStorage()
 }
 
 function getMemeIdxInStorage(id) {

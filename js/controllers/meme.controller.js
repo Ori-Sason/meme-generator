@@ -24,11 +24,11 @@ function renderMeme() {
 
   let img = new Image()
   img.src = getImg(meme.selectedImgId).url
-  
-  if(gUserImg) img.src = gUserImg.src
-  
+
+  if (gUserImg) img.src = gUserImg.src
+
   img.onload = () => {
-  // if(img.complete){
+    // if(img.complete){
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
     meme.lines.forEach((line) => {
       if (line.sticker) drawSticker(line)
@@ -70,7 +70,7 @@ function drawRect(line) {
   const width = line.sticker
     ? line.size + 20
     : gCtx.measureText(line.txt).width + 20
-  
+
   const height = line.sticker ? line.size + 20 : parseInt(gCtx.font) * 1.3
 
   gCtx.rect(
@@ -87,7 +87,7 @@ function onChangeText(txt) {
   const line = getCurrLine()
   if (line.sticker) addLine()
 
-  setLineTxt(txt)  
+  setLineTxt(txt)
   renderMeme()
 }
 
@@ -145,7 +145,7 @@ function renderFontFamilies() {
   )
 
   document.querySelector('.font-family-input').innerHTML = strHtml.join('')
-  
+
   const meme = getMeme()
   document.querySelector('.font-family-input').value = meme.fontFamily
 }
@@ -184,7 +184,7 @@ function drawSticker(line) {
   img.src = line.sticker
 
   // img.onload = () => {
-  if(img.complete){
+  if (img.complete) {
     gCtx.drawImage(
       img,
       pos.x - line.size / 2,
@@ -287,18 +287,24 @@ function doUploadImg(imgDataUrl, onSuccess) {
     })
 }
 
-function onSaveMeme(){
+function onSaveMeme(elBtn) {
   saveMeme()
+  elBtn.innerText = 'Done!'
+  elBtn.classList.add('hide-fa')
+  setTimeout(() => {
+    elBtn.innerText = 'Save'
+    elBtn.classList.remove('hide-fa')
+  }, 1000)
 }
 
-function onLoadMeme(id){
+function onLoadMeme(id) {
   loadMeme(id)
 }
 
 /* HELPERS */
 /* will need to fix the sizes (not always 60)*/
 function setInitialPos(line) {
-  let x = line.sticker? line.size : 30
+  let x = line.sticker ? line.size : 30
 
   if (line.align === 'right') {
     x =
@@ -313,8 +319,8 @@ function setInitialPos(line) {
   }
 
   let y = 60 * line.id
-  if (line.id === 0) y = (line.sticker? line.size : 60)
-  else if (line.id === 1) y = (gElCanvas.height - (line.sticker ? line.size : 20))
+  if (line.id === 0) y = line.sticker ? line.size : 60
+  else if (line.id === 1) y = gElCanvas.height - (line.sticker ? line.size : 20)
 
   const pos = { x, y }
   setLineInitPos(pos)
@@ -373,7 +379,7 @@ function getEvPos(ev) {
   return pos
 }
 
-function _clearEditorTxtInput(){
+function _clearEditorTxtInput() {
   document.querySelector('.editor-config .text-input').value = ''
 }
 
